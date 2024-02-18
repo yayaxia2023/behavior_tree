@@ -1,6 +1,6 @@
 #include "rm_behavior_tree/rm_behavior_tree.h"
 
-#include "rm_behavior_tree/wait_until_subscribe.h"
+#include "rm_behavior_tree/plugins/action/wait_until_subscribe.h"
 #include "behaviortree_cpp/bt_factory.h"
 #include "behaviortree_cpp/loggers/groot2_publisher.h"
 // file that contains the custom nodes definitions

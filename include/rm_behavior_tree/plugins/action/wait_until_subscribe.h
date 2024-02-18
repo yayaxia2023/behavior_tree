@@ -1,4 +1,6 @@
-//头文件
+#ifndef RM_BEHAVIOR_TREE__PLUGINS__ACTION__WAIT_UNTIL_SUBSCRIBE_HPP_
+#define RM_BEHAVIOR_TREE__PLUGINS__ACTION__WAIT_UNTIL_SUBSCRIBE_HPP_
+
 #include <iostream>
 
 #include "behaviortree_cpp/behavior_tree.h"
@@ -7,12 +9,13 @@
 #include "rm_decision_interfaces/msg/friend_location.hpp"
 #include "rm_decision_interfaces/msg/rfid.hpp"
 #include "rm_decision_interfaces/msg/robot_status.hpp"
+
+#include "rclcpp/rclcpp.hpp"
 namespace WaitUntilSubscribe
 {
 using BT::NodeStatus;
 //行为树节点类
 
-//WaitUntilSubscribe叶节点
 class WaitUntilSubscribe : public BT::SyncActionNode
 {
 public:
@@ -46,9 +49,10 @@ public:
     std::cout << "blue_1_robot_hp: " << all_robot_hp.blue_1_robot_hp << std::endl;
     std::cout << "hero_x_location: " << friend_location.hero_x << std::endl;
     std::cout << "RFID: " << rfid.rfid_patrol_status << std::endl;
-    
+
     return BT::NodeStatus::SUCCESS;
   }
+
 };
 
 inline void RegisterNodes(BT::BehaviorTreeFactory & factory)
@@ -57,3 +61,5 @@ inline void RegisterNodes(BT::BehaviorTreeFactory & factory)
   factory.registerNodeType<WaitUntilSubscribe>("WaitUntilSubscribe");
 }
 }  // namespace WaitUntilSubscribe
+
+#endif  // RM_BEHAVIOR_TREE__PLUGINS__ACTION__WAIT_UNTIL_SUBSCRIBE_HPP_
