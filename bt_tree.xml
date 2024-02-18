@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4"
+      main_tree_to_execute="BehaviorTree">
+  <BehaviorTree ID="BehaviorTree">
+    <Sequence>
+      <ROS2DecoratorNode robot_hp="{robot_hp}"
+                         friend_location="{friend_location}"
+                         robot_status="{robot_status}"
+                         rfid="{rfid}"/>
+      <Delay delay_msec="1000">
+        <RosSub robot_hp="{robot_hp}"
+                 friend_location="{friend_location}"
+                 robot_status="{robot_status}"
+                 rfid="{rfid}"/>
+      </Delay>
+    </Sequence>
+  </BehaviorTree>
+
+  <!-- Description of Node Models (used by Groot) -->
+  <TreeNodesModel>
+    <Action ID="ROS2DecoratorNode"
+            editable="true">
+      <output_port name="robot_hp"
+                   default="{robot_hp}"/>
+      <output_port name="friend_location"
+                   default="{friend_location}"/>
+      <output_port name="robot_status"
+                   default="{robot_status}"/>
+      <output_port name="rfid"
+                   default="{rfid}"/>
+    </Action>
+    <Action ID="RosSub"
+            editable="true">
+      <input_port name="robot_hp"
+                  default="{robot_hp}"/>
+      <input_port name="friend_location"
+                  default="{friend_location}"/>
+      <input_port name="robot_status"
+                  default="{robot_status}"/>
+      <input_port name="rfid"
+                  default="{rfid}"/>
+    </Action>
+  </TreeNodesModel>
+
+</root>
