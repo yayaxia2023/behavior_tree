@@ -26,7 +26,7 @@ function(add_target_dependencies target)
 endfunction()
 
 add_library(WaitUntilSubscribe_plugin SHARED 
-    bt_node_self/wait_until_subscribe.cpp
+    src/wait_until_subscribe.cpp
 )
 
 target_compile_definitions(WaitUntilSubscribe_plugin PRIVATE BT_PLUGIN_EXPORT)
