@@ -25,10 +25,12 @@ function(add_target_dependencies target)
     ament_target_dependencies(${target} ${THIS_PACKAGE_INCLUDE_DEPENDS})
 endfunction()
 
-add_library(mynode_plugin SHARED bt_node_self/mynode.cpp)
+add_library(WaitUntilSubscribe_plugin SHARED 
+    bt_node_self/wait_until_subscribe.cpp
+)
 
-target_compile_definitions(mynode_plugin PRIVATE  BT_PLUGIN_EXPORT )
+target_compile_definitions(WaitUntilSubscribe_plugin PRIVATE BT_PLUGIN_EXPORT)
 
-add_target_dependencies(mynode_plugin)
+add_target_dependencies(WaitUntilSubscribe_plugin)
 
 ament_auto_package ()

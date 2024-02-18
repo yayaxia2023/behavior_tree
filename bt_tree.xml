@@ -8,10 +8,10 @@
                          robot_status="{robot_status}"
                          rfid="{rfid}"/>
       <Delay delay_msec="1000">
-        <RosSub robot_hp="{robot_hp}"
-                 friend_location="{friend_location}"
-                 robot_status="{robot_status}"
-                 rfid="{rfid}"/>
+        <WaitUntilSubscribe robot_hp="{robot_hp}"
+                            friend_location="{friend_location}"
+                            robot_status="{robot_status}"
+                            rfid="{rfid}"/>
       </Delay>
     </Sequence>
   </BehaviorTree>
@@ -29,7 +29,7 @@
       <output_port name="rfid"
                    default="{rfid}"/>
     </Action>
-    <Action ID="RosSub"
+    <Action ID="WaitUntilSubscribe"
             editable="true">
       <input_port name="robot_hp"
                   default="{robot_hp}"/>

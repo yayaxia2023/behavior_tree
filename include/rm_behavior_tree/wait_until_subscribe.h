@@ -7,16 +7,16 @@
 #include "rm_decision_interfaces/msg/friend_location.hpp"
 #include "rm_decision_interfaces/msg/rfid.hpp"
 #include "rm_decision_interfaces/msg/robot_status.hpp"
-namespace mynode
+namespace WaitUntilSubscribe
 {
 using BT::NodeStatus;
 //行为树节点类
 
-//RosSub叶节点
-class RosSub : public BT::SyncActionNode
+//WaitUntilSubscribe叶节点
+class WaitUntilSubscribe : public BT::SyncActionNode
 {
 public:
-  RosSub(const std::string & name, const BT::NodeConfig & config) : BT::SyncActionNode(name, config)
+  WaitUntilSubscribe(const std::string & name, const BT::NodeConfig & config) : BT::SyncActionNode(name, config)
   {
   }
   // 给该节点申明端口
@@ -46,9 +46,7 @@ public:
     std::cout << "blue_1_robot_hp: " << all_robot_hp.blue_1_robot_hp << std::endl;
     std::cout << "hero_x_location: " << friend_location.hero_x << std::endl;
     std::cout << "RFID: " << rfid.rfid_patrol_status << std::endl;
-
-    //setOutput("端口名称","设置端口输出值");
-    //getInput("端口名称",端口输入值);
+    
     return BT::NodeStatus::SUCCESS;
   }
 };
@@ -56,6 +54,6 @@ public:
 inline void RegisterNodes(BT::BehaviorTreeFactory & factory)
 {
   //注册节点
-  factory.registerNodeType<RosSub>("RosSub");
+  factory.registerNodeType<WaitUntilSubscribe>("WaitUntilSubscribe");
 }
-}  // namespace mynode
+}  // namespace WaitUntilSubscribe
