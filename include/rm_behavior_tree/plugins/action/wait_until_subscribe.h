@@ -13,17 +13,16 @@ namespace rm_behavior_tree
 {
 using BT::NodeStatus;
 
-class WaitUntilSubscribe : public BT::SyncActionNode
+class WaitUntilSubscribeAction : public BT::SyncActionNode
 {
 public:
-  WaitUntilSubscribe(const std::string & name, const BT::NodeConfig & config);
+  WaitUntilSubscribeAction(const std::string & name, const BT::NodeConfig & config);
 
   BT::NodeStatus tick() override;
 
   static BT::PortsList providedPorts()
   {
     return {
-      //端口设置
       BT::InputPort<rm_decision_interfaces::msg::RFID>("rfid"),
       BT::InputPort<rm_decision_interfaces::msg::RobotStatus>("robot_status"),
       BT::InputPort<rm_decision_interfaces::msg::FriendLocation>("friend_location"),

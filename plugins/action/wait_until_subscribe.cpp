@@ -6,13 +6,13 @@
 namespace rm_behavior_tree
 {
 
-WaitUntilSubscribe::WaitUntilSubscribe(
+WaitUntilSubscribeAction::WaitUntilSubscribeAction(
   const std::string & name, const BT::NodeConfiguration & config)
 : BT::SyncActionNode(name, config)
 {
 }
 
-BT::NodeStatus WaitUntilSubscribe::tick()
+BT::NodeStatus WaitUntilSubscribeAction::tick()
 {
   rm_decision_interfaces::msg::AllRobotHP all_robot_hp;
   rm_decision_interfaces::msg::FriendLocation friend_location;
@@ -36,5 +36,5 @@ BT::NodeStatus WaitUntilSubscribe::tick()
 #include "behaviortree_cpp/bt_factory.h"
 BT_REGISTER_NODES(factory)
 {
-  factory.registerNodeType<rm_behavior_tree::WaitUntilSubscribe>("WaitUntilSubscribe");
+  factory.registerNodeType<rm_behavior_tree::WaitUntilSubscribeAction>("WaitUntilSubscribe");
 }
