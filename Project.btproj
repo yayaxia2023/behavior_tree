@@ -1,19 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="4" project_name="Project">
+    <include path="../../../../../BehaviorTree_WS/rm_behaviortree/bt_tree.xml"/>
+    <include path="../../../../../BehaviorTree_WS/rm_behaviortree/rm_behavior_tree.xml"/>
     <include path="bt_tree.xml"/>
     <!-- Description of Node Models (used by Groot) -->
     <TreeNodesModel>
+        <Action ID="BackToHome" editable="true">
+            <input_port name="linear_x" default="0"/>
+            <input_port name="linear_y" default="0"/>
+            <input_port name="linear_z" default="0"/>
+            <input_port name="angular_x" default="0"/>
+            <input_port name="angular_y" default="0"/>
+            <input_port name="angular_z" default="0"/>
+        </Action>
         <Action ID="ROS2DecoratorNode" editable="true">
             <output_port name="robot_hp" default="{robot_hp}"/>
             <output_port name="friend_location" default="{friend_location}"/>
             <output_port name="robot_status" default="{robot_status}"/>
             <output_port name="rfid" default="{rfid}"/>
         </Action>
+        <Action ID="SendGoal" editable="true">
+            <input_port name="linear_x" default="0"/>
+            <input_port name="linear_y" default="0"/>
+            <input_port name="linear_z" default="0"/>
+            <input_port name="angular_x" default="0"/>
+            <input_port name="angular_y" default="0"/>
+            <input_port name="angular_z" default="0"/>
+        </Action>
         <Action ID="WaitUntilSubscribe" editable="true">
             <input_port name="robot_hp" default="{robot_hp}"/>
             <input_port name="friend_location" default="{friend_location}"/>
             <input_port name="robot_status" default="{robot_status}"/>
             <input_port name="rfid" default="{rfid}"/>
+            <input_port name="goal_pose"/>
         </Action>
     </TreeNodesModel>
 </root>

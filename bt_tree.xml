@@ -13,6 +13,12 @@
                             robot_status="{robot_status}"
                             rfid="{rfid}"/>
       </Delay>
+      <SendGoal linear_x="0"
+                linear_y="1"
+                linear_z="2"
+                angular_x="3"
+                angular_y="4"
+                angular_z="5"/>
     </Sequence>
   </BehaviorTree>
 
@@ -29,6 +35,21 @@
       <output_port name="rfid"
                    default="{rfid}"/>
     </Action>
+    <Action ID="SendGoal"
+            editable="true">
+      <input_port name="linear_x"
+                  default="0"/>
+      <input_port name="linear_y"
+                  default="0"/>
+      <input_port name="linear_z"
+                  default="0"/>
+      <input_port name="angular_x"
+                  default="0"/>
+      <input_port name="angular_y"
+                  default="0"/>
+      <input_port name="angular_z"
+                  default="0"/>
+    </Action>
     <Action ID="WaitUntilSubscribe"
             editable="true">
       <input_port name="robot_hp"
@@ -39,6 +60,7 @@
                   default="{robot_status}"/>
       <input_port name="rfid"
                   default="{rfid}"/>
+      <input_port name="goal_pose"/>
     </Action>
   </TreeNodesModel>
 
