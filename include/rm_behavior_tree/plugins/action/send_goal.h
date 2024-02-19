@@ -21,7 +21,6 @@ public:
     const BT::RosNodeParams & params)
   : RosTopicPubNode<geometry_msgs::msg::Twist>(instance_name, conf, params)
   {
-    // Initialize your node here if needed
   }
 
   bool setMessage(geometry_msgs::msg::Twist & msg) override;

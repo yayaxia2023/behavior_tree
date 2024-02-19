@@ -19,9 +19,9 @@ ament_auto_find_build_dependencies()
 ament_auto_add_executable(rm_behavior_tree 
     src/rm_behavior_tree.cpp
 )
-ament_auto_add_executable(send_goal 
-    plugins/action/send_goal.cpp
-)
+# ament_auto_add_executable(send_goal 
+#     plugins/action/send_goal.cpp
+# )
 
 # 定义宏函数 add_target_dependencies
 function(add_target_dependencies target)
@@ -32,14 +32,14 @@ endfunction()
 add_library(WaitUntilSubscribe_plugin SHARED 
     plugins/action/wait_until_subscribe.cpp
 )
-# add_library(SendGoal_plugin SHARED 
-#     plugins/action/send_goal.cpp
-# )
+add_library(SendGoal_plugin SHARED 
+    plugins/action/send_goal.cpp
+)
 
 target_compile_definitions(WaitUntilSubscribe_plugin PRIVATE BT_PLUGIN_EXPORT)
-# target_compile_definitions(SendGoal_plugin PRIVATE BT_PLUGIN_EXPORT)
+target_compile_definitions(SendGoal_plugin PRIVATE BT_PLUGIN_EXPORT)
 
 add_target_dependencies(WaitUntilSubscribe_plugin)
-# add_target_dependencies(SendGoal_plugin)
+add_target_dependencies(SendGoal_plugin)
 
 ament_auto_package()
