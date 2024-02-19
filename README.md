@@ -2,6 +2,8 @@
 
 仍在开发中...
 
+本仓库为 [pb_rm_simulation](https://gitee.com/SMBU-POLARBEAR/pb_rmsimulation) 的子仓库
+
 ## 环境配置
 
 当前开发环境为 Ubuntu22.04, ROS2 humble

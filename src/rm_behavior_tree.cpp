@@ -17,7 +17,7 @@ int main(int argc, char ** argv)
 
   factory.registerNodeType<ROS2DecoratorNode>("ROS2DecoratorNode");
 
-  auto tree = factory.createTreeFromFile("./bt_tree.xml");
+  auto tree = factory.createTreeFromFile("./src/rm_decision/rm_behavior_tree/bt_tree.xml");
 
   BT::Groot2Publisher publisher(tree);
 
