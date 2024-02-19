@@ -6,35 +6,36 @@
 #include "behaviortree_cpp/basic_types.h"
 #include "behaviortree_cpp/behavior_tree.h"
 #include "behaviortree_ros2/bt_topic_pub_node.hpp"
-#include "geometry_msgs/msg/twist.hpp"
+#include "geometry_msgs/msg/pose_stamped.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 namespace rm_behavior_tree
 {
 using BT::NodeStatus;
 
-class SendGoalAction : public BT::RosTopicPubNode<geometry_msgs::msg::Twist>
+class SendGoalAction : public BT::RosTopicPubNode<geometry_msgs::msg::PoseStamped>
 {
 public:
   SendGoalAction(
     const std::string & instance_name, const BT::NodeConfig & conf,
     const BT::RosNodeParams & params)
-  : RosTopicPubNode<geometry_msgs::msg::Twist>(instance_name, conf, params)
+  : RosTopicPubNode<geometry_msgs::msg::PoseStamped>(instance_name, conf, params)
   {
   }
 
-  bool setMessage(geometry_msgs::msg::Twist & msg) override;
+  bool setMessage(geometry_msgs::msg::PoseStamped & msg) override;
 
   static BT::PortsList providedPorts()
   {
     return {
-      BT::InputPort<float>("linear_x"),
-      BT::InputPort<float>("linear_y"),
-      BT::InputPort<float>("linear_z"),
-      BT::InputPort<float>("angular_x"),
-      BT::InputPort<float>("angular_y"),
-      BT::InputPort<float>("angular_z"),
-      BT::OutputPort<geometry_msgs::msg::Twist>("goal_pose")};
+      BT::InputPort<float>("position_x"),
+      BT::InputPort<float>("position_y"),
+      BT::InputPort<float>("position_z"),
+      BT::InputPort<float>("orientation_x"),
+      BT::InputPort<float>("orientation_y"),
+      BT::InputPort<float>("orientation_z"),
+      BT::InputPort<float>("orientation_w"),
+      BT::OutputPort<geometry_msgs::msg::PoseStamped>("goal_pose")};
   }
 };
 

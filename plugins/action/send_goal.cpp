@@ -3,26 +3,31 @@
 namespace rm_behavior_tree
 {
 
-bool SendGoalAction::setMessage(geometry_msgs::msg::Twist & msg)
+bool SendGoalAction::setMessage(geometry_msgs::msg::PoseStamped & msg)
 {
-  float linear_x, linear_y, linear_z, angular_x, angular_y, angular_z;
+  float position_x, position_y, position_z;
+  float orientation_x, orientation_y, orientation_z, orientation_w;
 
-  getInput("linear_x", linear_x);
-  getInput("linear_y", linear_y);
-  getInput("linear_z", linear_z);
-  getInput("angular_x", angular_x);
-  getInput("angular_y", angular_y);
-  getInput("angular_z", angular_z);
+  getInput("position_x", position_x);
+  getInput("position_y", position_y);
+  getInput("position_z", position_z);
+  getInput("orientation_x", orientation_x);
+  getInput("orientation_y", orientation_y);
+  getInput("orientation_z", orientation_z);
+  getInput("orientation_w", orientation_w);
 
-  msg.linear.x = linear_x;
-  msg.linear.y = linear_y;
-  msg.linear.z = linear_z;
-  msg.angular.x = angular_x;
-  msg.angular.y = angular_y;
-  msg.angular.z = angular_z;
+  msg.pose.position.x = position_x;
+  msg.pose.position.y = position_y;
+  msg.pose.position.z = position_z;
+  msg.pose.orientation.x = orientation_x;
+  msg.pose.orientation.y = orientation_y;
+  msg.pose.orientation.z = orientation_z;
+  msg.pose.orientation.w = orientation_w;
+  msg.header.stamp = rclcpp::Clock().now();
+  msg.header.frame_id = "map";
 
-  std::cout << "linear_x: " << linear_x << std::endl;
-  std::cout << "angular_y: " << angular_y << std::endl;
+  std::cout << "position_x: " << position_x << std::endl;
+  std::cout << "orientation_w: " << orientation_w << std::endl;
 
   return true;
 }
