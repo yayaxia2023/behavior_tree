@@ -19,9 +19,6 @@ ament_auto_find_build_dependencies()
 ament_auto_add_executable(rm_behavior_tree 
     src/rm_behavior_tree.cpp
 )
-# ament_auto_add_executable(send_goal 
-#     plugins/action/send_goal.cpp
-# )
 
 # 定义宏函数 add_target_dependencies
 function(add_target_dependencies target)

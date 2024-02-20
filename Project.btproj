@@ -7,7 +7,12 @@
             <input_port name="goal_pose" default="0;0;0; 0;0;0;1"/>
         </Action>
         <Action ID="SubAllRobotHP" editable="true">
+            <input_port name="topic_name" default="robot_hp"/>
             <output_port name="robot_hp" default="{robot_hp}"/>
+        </Action>
+        <Action ID="SubRobotStatus" editable="true">
+            <input_port name="topic_name" default="robot_status"/>
+            <output_port name="robot_status" default="{robot_status}"/>
         </Action>
     </TreeNodesModel>
 </root>
