@@ -4,13 +4,7 @@
   <BehaviorTree ID="BehaviorTree">
     <Sequence>
       <Delay delay_msec="1000">
-        <SendGoal position_x="1"
-                  position_y="2"
-                  position_z="3"
-                  orientation_x="0"
-                  orientation_y="0"
-                  orientation_z="0"
-                  orientation_w="1"/>
+        <SendGoal goal_pose="3;3;4; 0;0;0;1"/>
       </Delay>
     </Sequence>
   </BehaviorTree>
@@ -19,20 +13,8 @@
   <TreeNodesModel>
     <Action ID="SendGoal"
             editable="true">
-      <input_port name="position_x"
-                  default="0"/>
-      <input_port name="position_y"
-                  default="0"/>
-      <input_port name="position_z"
-                  default="0"/>
-      <input_port name="orientation_x"
-                  default="0"/>
-      <input_port name="orientation_y"
-                  default="0"/>
-      <input_port name="orientation_z"
-                  default="0"/>
-      <input_port name="orientation_w"
-                  default="1"/>
+      <input_port name="goal_pose"
+                  default="0;0;0; 0;0;0;1"/>
     </Action>
   </TreeNodesModel>
 

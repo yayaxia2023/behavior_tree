@@ -4,13 +4,7 @@
     <!-- Description of Node Models (used by Groot) -->
     <TreeNodesModel>
         <Action ID="SendGoal" editable="true">
-            <input_port name="position_x" default="0"/>
-            <input_port name="position_y" default="0"/>
-            <input_port name="position_z" default="0"/>
-            <input_port name="orientation_x" default="0"/>
-            <input_port name="orientation_y" default="0"/>
-            <input_port name="orientation_z" default="0"/>
-            <input_port name="orientation_w" default="0"/>
+            <input_port name="goal_pose" default="0;0;0; 0;0;0;1"/>
         </Action>
     </TreeNodesModel>
 </root>

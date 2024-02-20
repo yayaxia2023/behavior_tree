@@ -1,33 +1,32 @@
 #include "rm_behavior_tree/plugins/action/send_goal.h"
 
+#include <cstdio>
+
 namespace rm_behavior_tree
 {
 
 bool SendGoalAction::setMessage(geometry_msgs::msg::PoseStamped & msg)
 {
-  float position_x, position_y, position_z;
-  float orientation_x, orientation_y, orientation_z, orientation_w;
+  auto res = getInput<PoseStamped>("goal_pose");
+  if (!res) {
+    throw BT::RuntimeError("error reading port [goal_pose]:", res.error());
+  }
+  PoseStamped goal = res.value();
 
-  getInput("position_x", position_x);
-  getInput("position_y", position_y);
-  getInput("position_z", position_z);
-  getInput("orientation_x", orientation_x);
-  getInput("orientation_y", orientation_y);
-  getInput("orientation_z", orientation_z);
-  getInput("orientation_w", orientation_w);
-
-  msg.pose.position.x = position_x;
-  msg.pose.position.y = position_y;
-  msg.pose.position.z = position_z;
-  msg.pose.orientation.x = orientation_x;
-  msg.pose.orientation.y = orientation_y;
-  msg.pose.orientation.z = orientation_z;
-  msg.pose.orientation.w = orientation_w;
   msg.header.stamp = rclcpp::Clock().now();
   msg.header.frame_id = "map";
+  msg.pose.position.x = goal.position_x;
+  msg.pose.position.y = goal.position_y;
+  msg.pose.position.z = goal.position_z;
+  msg.pose.orientation.x = goal.orientation_x;
+  msg.pose.orientation.y = goal.orientation_y;
+  msg.pose.orientation.z = goal.orientation_z;
+  msg.pose.orientation.w = goal.orientation_w;
 
-  std::cout << "position_x: " << position_x << std::endl;
-  std::cout << "orientation_w: " << orientation_w << std::endl;
+  printf(
+    "Goal_pose: [ %.1f, %.1f, %.1f, %.1f, %.1f, %.1f, %.1f ]\n", goal.position_x, goal.position_x,
+    goal.position_z, goal.orientation_x, goal.orientation_y, goal.orientation_z,
+    goal.orientation_w);
 
   return true;
 }
