@@ -6,5 +6,8 @@
         <Action ID="SendGoal" editable="true">
             <input_port name="goal_pose" default="0;0;0; 0;0;0;1"/>
         </Action>
+        <Action ID="SubAllRobotHP" editable="true">
+            <output_port name="robot_hp" default="{robot_hp}"/>
+        </Action>
     </TreeNodesModel>
 </root>

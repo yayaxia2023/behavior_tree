@@ -6,6 +6,7 @@
       <Delay delay_msec="1000">
         <SendGoal goal_pose="3;3;4; 0;0;0;1"/>
       </Delay>
+      <SubAllRobotHP robot_hp="{robot_hp}"/>
     </Sequence>
   </BehaviorTree>
 
@@ -15,6 +16,11 @@
             editable="true">
       <input_port name="goal_pose"
                   default="0;0;0; 0;0;0;1"/>
+    </Action>
+    <Action ID="SubAllRobotHP"
+            editable="true">
+      <output_port name="robot_hp"
+                   default="{robot_hp}"/>
     </Action>
   </TreeNodesModel>
 

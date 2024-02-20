@@ -35,11 +35,16 @@ add_library(WaitUntilSubscribe_plugin SHARED
 add_library(SendGoal_plugin SHARED 
     plugins/action/send_goal.cpp
 )
+add_library(UpdateMsg_plugin SHARED 
+    plugins/action/update_msg.cpp
+)
 
 target_compile_definitions(WaitUntilSubscribe_plugin PRIVATE BT_PLUGIN_EXPORT)
 target_compile_definitions(SendGoal_plugin PRIVATE BT_PLUGIN_EXPORT)
+target_compile_definitions(UpdateMsg_plugin PRIVATE BT_PLUGIN_EXPORT)
 
 add_target_dependencies(WaitUntilSubscribe_plugin)
 add_target_dependencies(SendGoal_plugin)
+add_target_dependencies(UpdateMsg_plugin)
 
 ament_auto_package()

@@ -9,6 +9,7 @@
 #include "behaviortree_cpp/loggers/groot2_publisher.h"
 #include "behaviortree_ros2/plugins.hpp"
 #include "rm_behavior_tree/plugins/action/send_goal.h"
+#include "rm_behavior_tree/plugins/action/update_msg.h"
 
 int main(int argc, char ** argv)
 {
@@ -20,8 +21,12 @@ int main(int argc, char ** argv)
   BT::RosNodeParams params_send_goal;
   params_send_goal.nh = std::make_shared<rclcpp::Node>("SendGoal");
   params_send_goal.default_port_value = "goal_pose";
-
   RegisterRosNode(*factory, "./build/rm_behavior_tree/libSendGoal_plugin.so", params_send_goal);
+
+  BT::RosNodeParams params_robot_hp;
+  params_robot_hp.nh = std::make_shared<rclcpp::Node>("UpdateMsg");
+  params_robot_hp.default_port_value = "robot_hp";
+  RegisterRosNode(*factory, "./build/rm_behavior_tree/libUpdateMsg_plugin.so", params_robot_hp);
 
   // Allow Groot2 to visualize custom type
   BT::RegisterJsonDefinition<PoseStamped>(PoseStampedToJson);
