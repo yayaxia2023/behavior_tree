@@ -19,6 +19,9 @@ ament_auto_find_build_dependencies()
 ament_auto_add_executable(rm_behavior_tree 
     src/rm_behavior_tree.cpp
 )
+# ament_auto_add_executable(read_from_blackboard 
+#     src/read_from_blackboard.cpp
+# )
 
 # 定义宏函数 add_target_dependencies
 function(add_target_dependencies target)
@@ -35,13 +38,18 @@ add_library(SendGoal_plugin SHARED
 add_library(UpdateMsg_plugin SHARED 
     plugins/action/update_msg.cpp
 )
+add_library(PrintFromBlackboard_plugin SHARED 
+    plugins/action/print_from_blackboard.cpp
+)
 
 target_compile_definitions(WaitUntilSubscribe_plugin PRIVATE BT_PLUGIN_EXPORT)
 target_compile_definitions(SendGoal_plugin PRIVATE BT_PLUGIN_EXPORT)
 target_compile_definitions(UpdateMsg_plugin PRIVATE BT_PLUGIN_EXPORT)
+target_compile_definitions(PrintFromBlackboard_plugin PRIVATE BT_PLUGIN_EXPORT)
 
 add_target_dependencies(WaitUntilSubscribe_plugin)
 add_target_dependencies(SendGoal_plugin)
 add_target_dependencies(UpdateMsg_plugin)
+add_target_dependencies(PrintFromBlackboard_plugin)
 
 ament_auto_package()

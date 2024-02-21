@@ -8,6 +8,7 @@
 #include "behaviortree_cpp/json_export.h"
 #include "behaviortree_cpp/loggers/groot2_publisher.h"
 #include "behaviortree_ros2/plugins.hpp"
+#include "rm_behavior_tree/plugins/action/print_from_blackboard.h"
 #include "rm_behavior_tree/plugins/action/send_goal.h"
 #include "rm_behavior_tree/plugins/action/update_msg.h"
 
@@ -28,6 +29,8 @@ int main(int argc, char ** argv)
   params.nh = nh;
   factory.registerNodeType<rm_behavior_tree::SubAllRobotHPAction>("SubAllRobotHP", params);
   factory.registerNodeType<rm_behavior_tree::SubRobotStatusAction>("SubRobotStatus", params);
+
+  factory.registerNodeType<rm_behavior_tree::PrintFromBlackboard>("PrintFromBlackboard");
 
   // Allow Groot2 to visualize custom type
   BT::RegisterJsonDefinition<PoseStamped>(PoseStampedToJson);

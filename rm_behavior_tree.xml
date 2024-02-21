@@ -10,6 +10,7 @@
                      robot_hp="{robot_hp}"/>
       <SubRobotStatus topic_name="robot_status"
                       robot_status="{robot_status}"/>
+      <PrintFromBlackboard message="{robot_hp}"/>
     </Sequence>
   </BehaviorTree>
 
@@ -33,6 +34,11 @@
                   default="robot_status"/>
       <output_port name="robot_status"
                    default="{robot_status}"/>
+    </Action>
+    <Action ID="PrintFromBlackboard"
+            editable="true">
+      <input_port name="message"
+                  default="{}"/>
     </Action>
   </TreeNodesModel>
 
