@@ -10,9 +10,16 @@
             <input_port name="topic_name" default="robot_hp"/>
             <output_port name="robot_hp" default="{robot_hp}"/>
         </Action>
+        <Action ID="SubGameStatus" editable="true">
+            <input_port name="topic_name" default="game_status"/>
+            <output_port name="game_status" default="{game_status}"/>
+        </Action>
         <Action ID="SubRobotStatus" editable="true">
             <input_port name="topic_name" default="robot_status"/>
             <output_port name="robot_status" default="{robot_status}"/>
+        </Action>
+        <Action ID="PrintFromBlackboard" editable="true">
+            <input_port name="message" default="{}"/>
         </Action>
     </TreeNodesModel>
 </root>

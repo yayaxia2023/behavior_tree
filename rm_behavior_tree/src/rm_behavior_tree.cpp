@@ -30,13 +30,15 @@ int main(int argc, char ** argv)
     "SubAllRobotHP", params_update_msg);
   factory.registerNodeType<rm_behavior_tree::SubRobotStatusAction>(
     "SubRobotStatus", params_update_msg);
+  factory.registerNodeType<rm_behavior_tree::SubGameStatusAction>(
+    "SubGameStatus", params_update_msg);
 
   factory.registerNodeType<rm_behavior_tree::PrintFromBlackboard>("PrintFromBlackboard");
 
   // Allow Groot2 to visualize custom type
   BT::RegisterJsonDefinition<PoseStamped>(PoseStampedToJson);
 
-  const std::string tree_path = "./src/rm_decision/rm_behavior_tree/rm_behavior_tree.xml";
+  const std::string tree_path = "./rm_decision_ws/rm_behavior_tree/rm_behavior_tree.xml";
   auto tree = factory.createTreeFromFile(tree_path);
 
   // Connect the Groot2Publisher. This will allow Groot2 to get the tree and poll status updates.

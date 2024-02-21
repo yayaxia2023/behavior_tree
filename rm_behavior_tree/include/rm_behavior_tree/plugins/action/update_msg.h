@@ -2,12 +2,15 @@
 #define RM_BEHAVIOR_TREE__PLUGINS__ACTION__UPDATE_MSG_H_
 
 #include <iostream>
+#include <rm_decision_interfaces/msg/detail/game_status__struct.hpp>
+#include <rm_decision_interfaces/msg/detail/robot_status__struct.hpp>
 
 #include "behaviortree_cpp/behavior_tree.h"
 #include "behaviortree_cpp/bt_factory.h"
 #include "behaviortree_ros2/bt_topic_sub_node.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "rm_decision_interfaces/msg/all_robot_hp.hpp"
+#include "rm_decision_interfaces/msg/game_status.hpp"
 #include "rm_decision_interfaces/msg/robot_status.hpp"
 
 struct AllRobotHp
@@ -51,10 +54,9 @@ public:
 
   static BT::PortsList providedPorts()
   {
-    const char * description = "All robot HP message received from the game controller.";
     return {
       BT::InputPort<std::string>("topic_name"),
-      BT::OutputPort<rm_decision_interfaces::msg::AllRobotHP>("robot_hp", description)};
+      BT::OutputPort<rm_decision_interfaces::msg::AllRobotHP>("robot_hp")};
   }
 
   BT::NodeStatus onTick(
@@ -87,7 +89,7 @@ public:
     if (last_msg)  // empty if no new message received, since the last tick
     {
       RCLCPP_INFO(
-        logger(), "[%s] new message: %s", name().c_str(),
+        logger(), "[%s] new message, shooter_heat: %s", name().c_str(),
         std::to_string(last_msg->shooter_heat).c_str());
       setOutput("robot_status", *last_msg);
     }
@@ -96,10 +98,40 @@ public:
 
   static BT::PortsList providedPorts()
   {
-    const char * description = "Robot status message received from the game controller.";
     return {
       BT::InputPort<std::string>("topic_name"),
-      BT::OutputPort<rm_decision_interfaces::msg::RobotStatus>("robot_status", description)};
+      BT::OutputPort<rm_decision_interfaces::msg::RobotStatus>("robot_status")};
+  }
+};
+
+class SubGameStatusAction : public BT::RosTopicSubNode<rm_decision_interfaces::msg::GameStatus>
+{
+public:
+  SubGameStatusAction(
+    const std::string & instance_name, const BT::NodeConfig & conf,
+    const BT::RosNodeParams & params)
+  : RosTopicSubNode<rm_decision_interfaces::msg::GameStatus>(instance_name, conf, params)
+  {
+  }
+
+  BT::NodeStatus onTick(
+    const std::shared_ptr<rm_decision_interfaces::msg::GameStatus> & last_msg) override
+  {
+    if (last_msg)  // empty if no new message received, since the last tick
+    {
+      RCLCPP_INFO(
+        logger(), "[%s] new message, game_progress: %s", name().c_str(),
+        std::to_string(last_msg->game_progress).c_str());
+      setOutput("robot_status", *last_msg);
+    }
+    return BT::NodeStatus::SUCCESS;
+  }
+
+  static BT::PortsList providedPorts()
+  {
+    return {
+      BT::InputPort<std::string>("topic_name"),
+      BT::OutputPort<rm_decision_interfaces::msg::GameStatus>("game_status")};
   }
 };
 
