@@ -17,7 +17,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/AllRobotHP.msg"
   "msg/RobotStatus.msg"
   "msg/FriendLocation.msg"
-  "msg/Armor.msg"
+  "msg/GameStatus.msg"
   "msg/RFID.msg"
 
   DEPENDENCIES

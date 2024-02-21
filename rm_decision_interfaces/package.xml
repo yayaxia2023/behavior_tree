@@ -3,7 +3,7 @@
 <package format="3">
   <name>rm_decision_interfaces</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
+  <description>Robomaster 2024 referee system information to ROS CustomMsg</description>
   <maintainer email="1120220476@smbu.edu.cn">Lihan Chen</maintainer>
   <license>MIT</license>
 

@@ -1,4 +1,5 @@
-# v1.6 0x020B 地面机器人位置数据
+# 仅 RMUC 使用
+# v1.6.1 0x020B 地面机器人位置数据
 
 float64 hero_x
 float64 hero_y
