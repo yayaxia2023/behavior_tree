@@ -22,13 +22,14 @@ int main(int argc, char ** argv)
   BT::RosNodeParams params_send_goal;
   params_send_goal.nh = std::make_shared<rclcpp::Node>("SendGoal");
   params_send_goal.default_port_value = "goal_pose";
-  RegisterRosNode(factory, "./build/rm_behavior_tree/libSendGoal_plugin.so", params_send_goal);
+  factory.registerNodeType<rm_behavior_tree::SendGoalAction>("SendGoal", params_send_goal);
 
-  auto nh = std::make_shared<rclcpp::Node>("UpdateMsg");
-  BT::RosNodeParams params;
-  params.nh = nh;
-  factory.registerNodeType<rm_behavior_tree::SubAllRobotHPAction>("SubAllRobotHP", params);
-  factory.registerNodeType<rm_behavior_tree::SubRobotStatusAction>("SubRobotStatus", params);
+  BT::RosNodeParams params_update_msg;
+  params_update_msg.nh = std::make_shared<rclcpp::Node>("UpdateMsg");
+  factory.registerNodeType<rm_behavior_tree::SubAllRobotHPAction>(
+    "SubAllRobotHP", params_update_msg);
+  factory.registerNodeType<rm_behavior_tree::SubRobotStatusAction>(
+    "SubRobotStatus", params_update_msg);
 
   factory.registerNodeType<rm_behavior_tree::PrintFromBlackboard>("PrintFromBlackboard");
 
