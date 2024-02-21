@@ -89,7 +89,7 @@ public:
       RCLCPP_INFO(
         logger(), "[%s] new message: %s", name().c_str(),
         std::to_string(last_msg->shooter_heat).c_str());
-      setOutput("robot_hp", *last_msg);
+      setOutput("robot_status", *last_msg);
     }
     return BT::NodeStatus::SUCCESS;
   }
