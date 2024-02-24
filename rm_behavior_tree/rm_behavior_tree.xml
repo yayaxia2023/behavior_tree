@@ -13,6 +13,12 @@
         <IsGameStart message="{game_status}"/>
         <SendGoal goal_pose="3;3;4; 0;0;0;1"/>
       </AsyncFallback>
+      <AsyncFallback>
+        <IsStatusOK message="{robot_status}"
+                    hp_threshold="100"
+                    heat_threshold="350"/>
+        <SendGoal goal_pose="3;3;4; 0;0;0;1"/>
+      </AsyncFallback>
     </Sequence>
   </BehaviorTree>
 
@@ -22,6 +28,15 @@
             editable="true">
       <input_port name="message"
                   default="{game_status}"/>
+    </Action>
+    <Action ID="IsStatusOK"
+            editable="true">
+      <input_port name="message"
+                  default="{robot_status}"/>
+      <input_port name="hp_threshold"
+                  default="100"/>
+      <input_port name="heat_threshold"
+                  default="350"/>
     </Action>
     <Action ID="SendGoal"
             editable="true">

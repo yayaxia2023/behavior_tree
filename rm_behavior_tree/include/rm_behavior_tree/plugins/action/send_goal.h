@@ -59,6 +59,11 @@ void PoseStampedToJson(nlohmann::json & j, const PoseStamped & p)
 namespace rm_behavior_tree
 {
 
+/**
+ * @brief 发送给 Navigation2 目标位置点
+ * @param parameter-goal_pose发送到的ROS话题id
+ * RMUL中，中心增益区：(3.0，0.4) 右侧攻击点：(5.3 -1.35)
+ */
 class SendGoalAction : public BT::RosTopicPubNode<geometry_msgs::msg::PoseStamped>
 {
 public:
