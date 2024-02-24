@@ -7,14 +7,14 @@
 #include "behaviortree_cpp/bt_factory.h"
 #include "behaviortree_cpp/json_export.h"
 #include "behaviortree_cpp/loggers/groot2_publisher.h"
-#include "behaviortree_ros2/plugins.hpp"
+#include "rm_behavior_tree/plugins/action/judge.h"
 #include "rm_behavior_tree/plugins/action/print_from_blackboard.h"
 #include "rm_behavior_tree/plugins/action/send_goal.h"
 #include "rm_behavior_tree/plugins/action/update_msg.h"
 
 int main(int argc, char ** argv)
 {
-  std::cout << "Start RM_Behavior_Tree" << std::endl;
+  std::cout << "Start RM_Behavior_Tree" << '\n';
 
   rclcpp::init(argc, argv);
   BT::BehaviorTreeFactory factory;
@@ -34,6 +34,7 @@ int main(int argc, char ** argv)
     "SubGameStatus", params_update_msg);
 
   factory.registerNodeType<rm_behavior_tree::PrintFromBlackboard>("PrintFromBlackboard");
+  factory.registerNodeType<rm_behavior_tree::IsGameStartAction>("IsGameStart");
 
   // Allow Groot2 to visualize custom type
   BT::RegisterJsonDefinition<PoseStamped>(PoseStampedToJson);

@@ -33,13 +33,6 @@ struct AllRobotHp
   int blue_base_hp;
 };
 
-struct RobotStatus
-{
-  int robot_id;
-  int current_hp;
-  int shooter_heat;
-};
-
 namespace rm_behavior_tree
 {
 
@@ -77,9 +70,8 @@ class SubRobotStatusAction : public BT::RosTopicSubNode<rm_decision_interfaces::
 {
 public:
   SubRobotStatusAction(
-    const std::string & instance_name, const BT::NodeConfig & conf,
-    const BT::RosNodeParams & params)
-  : RosTopicSubNode<rm_decision_interfaces::msg::RobotStatus>(instance_name, conf, params)
+    const std::string & name, const BT::NodeConfig & conf, const BT::RosNodeParams & params)
+  : RosTopicSubNode<rm_decision_interfaces::msg::RobotStatus>(name, conf, params)
   {
   }
 
@@ -108,10 +100,16 @@ class SubGameStatusAction : public BT::RosTopicSubNode<rm_decision_interfaces::m
 {
 public:
   SubGameStatusAction(
-    const std::string & instance_name, const BT::NodeConfig & conf,
-    const BT::RosNodeParams & params)
-  : RosTopicSubNode<rm_decision_interfaces::msg::GameStatus>(instance_name, conf, params)
+    const std::string & name, const BT::NodeConfig & conf, const BT::RosNodeParams & params)
+  : RosTopicSubNode<rm_decision_interfaces::msg::GameStatus>(name, conf, params)
   {
+  }
+
+  static BT::PortsList providedPorts()
+  {
+    return {
+      BT::InputPort<std::string>("topic_name"),
+      BT::OutputPort<rm_decision_interfaces::msg::GameStatus>("game_status")};
   }
 
   BT::NodeStatus onTick(
@@ -122,16 +120,9 @@ public:
       RCLCPP_INFO(
         logger(), "[%s] new message, game_progress: %s", name().c_str(),
         std::to_string(last_msg->game_progress).c_str());
-      setOutput("robot_status", *last_msg);
+      setOutput("game_status", *last_msg);
     }
     return BT::NodeStatus::SUCCESS;
-  }
-
-  static BT::PortsList providedPorts()
-  {
-    return {
-      BT::InputPort<std::string>("topic_name"),
-      BT::OutputPort<rm_decision_interfaces::msg::GameStatus>("game_status")};
   }
 };
 

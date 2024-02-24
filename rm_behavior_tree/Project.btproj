@@ -3,6 +3,9 @@
     <include path="rm_behavior_tree.xml"/>
     <!-- Description of Node Models (used by Groot) -->
     <TreeNodesModel>
+        <Action ID="IsGameStart" editable="true">
+            <input_port name="message" default="{game_status}"/>
+        </Action>
         <Action ID="SendGoal" editable="true">
             <input_port name="goal_pose" default="0;0;0; 0;0;0;1"/>
         </Action>
@@ -17,9 +20,6 @@
         <Action ID="SubRobotStatus" editable="true">
             <input_port name="topic_name" default="robot_status"/>
             <output_port name="robot_status" default="{robot_status}"/>
-        </Action>
-        <Action ID="PrintFromBlackboard" editable="true">
-            <input_port name="message" default="{}"/>
         </Action>
     </TreeNodesModel>
 </root>
