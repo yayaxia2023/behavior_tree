@@ -93,7 +93,7 @@ public:
     msg.pose.orientation.w = goal.orientation_w;
 
     printf(
-      "Goal_pose: [ %.1f, %.1f, %.1f, %.1f, %.1f, %.1f, %.1f ]\n", goal.position_x, goal.position_x,
+      "Goal_pose: [ %.1f, %.1f, %.1f, %.1f, %.1f, %.1f, %.1f ]\n", goal.position_x, goal.position_y,
       goal.position_z, goal.orientation_x, goal.orientation_y, goal.orientation_z,
       goal.orientation_w);
 
