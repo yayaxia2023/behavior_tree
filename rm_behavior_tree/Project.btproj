@@ -3,6 +3,13 @@
     <include path="rm_behavior_tree.xml"/>
     <!-- Description of Node Models (used by Groot) -->
     <TreeNodesModel>
+        <Action ID="IsAttaked" editable="true">
+            <input_port name="message" default="{robot_status}"/>
+        </Action>
+        <Action ID="IsFriendOK" editable="true">
+            <input_port name="message" default="{robot_hp}"/>
+            <input_port name="friend_color" default="red"/>
+        </Action>
         <Action ID="IsGameStart" editable="true">
             <input_port name="message" default="{game_status}"/>
         </Action>

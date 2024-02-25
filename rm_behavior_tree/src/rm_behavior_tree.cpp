@@ -36,6 +36,8 @@ int main(int argc, char ** argv)
   factory.registerNodeType<rm_behavior_tree::PrintFromBlackboard>("PrintFromBlackboard");
   factory.registerNodeType<rm_behavior_tree::IsGameStartAction>("IsGameStart");
   factory.registerNodeType<rm_behavior_tree::IsStatusOKAction>("IsStatusOK");
+  factory.registerNodeType<rm_behavior_tree::IsAttakedAction>("IsAttaked");
+  factory.registerNodeType<rm_behavior_tree::IsFriendOKAction>("IsFriendOK");
 
   // Allow Groot2 to visualize custom type
   BT::RegisterJsonDefinition<PoseStamped>(PoseStampedToJson);
