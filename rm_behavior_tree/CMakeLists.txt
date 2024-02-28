@@ -53,6 +53,26 @@ ament_auto_add_library(sub_game_status SHARED
 )
 add_target_dependencies(sub_game_status)
 
+ament_auto_add_library(is_game_start SHARED 
+    plugins/condition/is_game_start.cpp
+)
+add_target_dependencies(is_game_start)
+
+ament_auto_add_library(is_status_ok SHARED 
+    plugins/condition/is_status_ok.cpp
+)
+add_target_dependencies(is_status_ok)
+
+ament_auto_add_library(is_attacked SHARED 
+    plugins/condition/is_attacked.cpp
+)
+add_target_dependencies(is_attacked)
+
+ament_auto_add_library(is_friend_ok SHARED 
+    plugins/condition/is_friend_ok.cpp
+)
+add_target_dependencies(is_friend_ok)
+
 # add_library(UpdateMsg_plugin SHARED 
 #     plugins/action/update_msg.cpp
 # )

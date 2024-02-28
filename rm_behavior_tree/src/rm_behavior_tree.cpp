@@ -30,13 +30,20 @@ int main(int argc, char ** argv)
     "sub_game_status",
   };
 
+  const std::vector<std::string> bt_plugin_libs = {
+    "is_game_start",
+    "is_status_ok",
+    "is_attacked",
+    "is_friend_ok",
+  };
+
   for (const auto & p : ros_plugin_libs) {
     RegisterRosNode(factory, BT::SharedLibrary::getOSName(p), params_update_msg);
   }
 
-  // for (const auto & p : plugin_libs) {
-  //   factory.registerFromPlugin(BT::SharedLibrary::getOSName(p));
-  // }
+  for (const auto & p : bt_plugin_libs) {
+    factory.registerFromPlugin(BT::SharedLibrary::getOSName(p));
+  }
 
   // RegisterRosNode(factory, "libsub_all_robot_hp.so", BT::RosNodeParams());
 

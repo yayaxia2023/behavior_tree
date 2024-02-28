@@ -9,6 +9,10 @@
                       robot_status="{robot_status}"/>
       <SubGameStatus topic_name="game_status"
                      game_status="{game_status}"/>
+      <IsGameStart message="{game_status}"/>
+      <IsStatusOK message="{robot_status}"
+                      hp_threshold="100"
+                      heat_threshold="350"/>
       <!-- <IfThenElse>
         <IsGameStart message="{game_status}"/>
         <IfThenElse>
