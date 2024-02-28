@@ -80,15 +80,4 @@ ament_auto_add_library(sub_game_status SHARED
 )
 add_target_dependencies(sub_game_status)
 
-# add_library(UpdateMsg_plugin SHARED 
-#     plugins/action/update_msg.cpp
-# )
-# add_library(PrintFromBlackboard_plugin SHARED 
-#     plugins/action/print_from_blackboard.cpp
-# )
-
-
-# add_target_dependencies(UpdateMsg_plugin)
-# add_target_dependencies(PrintFromBlackboard_plugin)
-
 ament_auto_package()

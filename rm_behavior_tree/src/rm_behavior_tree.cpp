@@ -38,10 +38,6 @@ int main(int argc, char ** argv)
     "is_attacked",
     "is_friend_ok",
   };
-
-  const std::vector<std::string> test = {
-    "send_goal",
-  };
   // clang-format on
 
   for (const auto & p : msg_update_plugin_libs) {
