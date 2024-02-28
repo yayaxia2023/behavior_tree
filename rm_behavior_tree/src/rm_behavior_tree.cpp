@@ -9,10 +9,7 @@
 #include "behaviortree_cpp/loggers/groot2_publisher.h"
 #include "behaviortree_cpp/utils/shared_library.h"
 #include "behaviortree_ros2/plugins.hpp"
-// #include "rm_behavior_tree/plugins/action/judge.h"
-// #include "rm_behavior_tree/plugins/action/print_from_blackboard.h"
-#include "rm_behavior_tree/plugins/action/send_goal.h"
-// #include "rm_behavior_tree/plugins/action/update_msg.h"
+#include "rm_behavior_tree/plugins/action/send_goal.hpp"
 
 int main(int argc, char ** argv)
 {
@@ -24,7 +21,12 @@ int main(int argc, char ** argv)
   BT::RosNodeParams params_update_msg;
   params_update_msg.nh = std::make_shared<rclcpp::Node>("update_msg");
 
-  const std::vector<std::string> ros_plugin_libs = {
+  BT::RosNodeParams params_send_goal;
+  params_send_goal.nh = std::make_shared<rclcpp::Node>("send_goal");
+  params_send_goal.default_port_value = "goal_pose";
+
+  // clang-format off
+  const std::vector<std::string> msg_update_plugin_libs = {
     "sub_all_robot_hp",
     "sub_robot_status",
     "sub_game_status",
@@ -37,7 +39,12 @@ int main(int argc, char ** argv)
     "is_friend_ok",
   };
 
-  for (const auto & p : ros_plugin_libs) {
+  const std::vector<std::string> test = {
+    "send_goal",
+  };
+  // clang-format on
+
+  for (const auto & p : msg_update_plugin_libs) {
     RegisterRosNode(factory, BT::SharedLibrary::getOSName(p), params_update_msg);
   }
 
@@ -45,30 +52,10 @@ int main(int argc, char ** argv)
     factory.registerFromPlugin(BT::SharedLibrary::getOSName(p));
   }
 
-  // RegisterRosNode(factory, "libsub_all_robot_hp.so", BT::RosNodeParams());
-
-  // BT::RosNodeParams params_send_goal;
-  // params_send_goal.nh = std::make_shared<rclcpp::Node>("SendGoal");
-  // params_send_goal.default_port_value = "goal_pose";
-  // factory.registerNodeType<rm_behavior_tree::SendGoalAction>("SendGoal", params_send_goal);
-
-  // BT::RosNodeParams params_update_msg;
-  // params_update_msg.nh = std::make_shared<rclcpp::Node>("UpdateMsg");
-  // factory.registerNodeType<rm_behavior_tree::SubAllRobotHPAction>(
-  //   "SubAllRobotHP", params_update_msg);
-  // factory.registerNodeType<rm_behavior_tree::SubRobotStatusAction>(
-  //   "SubRobotStatus", params_update_msg);
-  // factory.registerNodeType<rm_behavior_tree::SubGameStatusAction>(
-  //   "SubGameStatus", params_update_msg);
-
-  // factory.registerNodeType<rm_behavior_tree::PrintFromBlackboard>("PrintFromBlackboard");
-  // factory.registerNodeType<rm_behavior_tree::IsGameStartAction>("IsGameStart");
-  // factory.registerNodeType<rm_behavior_tree::IsStatusOKAction>("IsStatusOK");
-  // factory.registerNodeType<rm_behavior_tree::IsAttakedAction>("IsAttaked");
-  // factory.registerNodeType<rm_behavior_tree::IsFriendOKAction>("IsFriendOK");
+  RegisterRosNode(factory, BT::SharedLibrary::getOSName("send_goal"), params_send_goal);
 
   // Allow Groot2 to visualize custom type
-  BT::RegisterJsonDefinition<PoseStamped>(PoseStampedToJson);
+  BT::RegisterJsonDefinition<geometry_msgs::msg::PoseStamped>(PoseStampedToJson);
 
   const std::string tree_path = "./rm_decision_ws/rm_behavior_tree/rm_behavior_tree.xml";
   auto tree = factory.createTreeFromFile(tree_path);

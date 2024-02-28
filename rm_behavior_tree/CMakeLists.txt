@@ -38,21 +38,7 @@ ament_auto_add_executable(rm_behavior_tree
     src/rm_behavior_tree.cpp
 )
 
-ament_auto_add_library(sub_all_robot_hp SHARED 
-    plugins/action/sub_all_robot_hp.cpp
-)
-add_target_dependencies(sub_all_robot_hp)
-
-ament_auto_add_library(sub_robot_status SHARED 
-    plugins/action/sub_robot_status.cpp
-)
-add_target_dependencies(sub_robot_status)
-
-ament_auto_add_library(sub_game_status SHARED 
-    plugins/action/sub_game_status.cpp
-)
-add_target_dependencies(sub_game_status)
-
+# Conditions
 ament_auto_add_library(is_game_start SHARED 
     plugins/condition/is_game_start.cpp
 )
@@ -72,6 +58,27 @@ ament_auto_add_library(is_friend_ok SHARED
     plugins/condition/is_friend_ok.cpp
 )
 add_target_dependencies(is_friend_ok)
+
+# Actions
+ament_auto_add_library(send_goal SHARED 
+    plugins/action/send_goal.cpp
+)
+add_target_dependencies(send_goal)
+
+ament_auto_add_library(sub_all_robot_hp SHARED 
+    plugins/action/sub_all_robot_hp.cpp
+)
+add_target_dependencies(sub_all_robot_hp)
+
+ament_auto_add_library(sub_robot_status SHARED 
+    plugins/action/sub_robot_status.cpp
+)
+add_target_dependencies(sub_robot_status)
+
+ament_auto_add_library(sub_game_status SHARED 
+    plugins/action/sub_game_status.cpp
+)
+add_target_dependencies(sub_game_status)
 
 # add_library(UpdateMsg_plugin SHARED 
 #     plugins/action/update_msg.cpp
