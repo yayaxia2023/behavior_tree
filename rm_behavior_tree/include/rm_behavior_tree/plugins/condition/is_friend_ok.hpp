@@ -9,8 +9,6 @@ namespace rm_behavior_tree
 
 /**
  * @brief condition节点，用于判断队友平均血量是否高于敌方平均血量
- *
- *        注意比赛前确认敌方机器人步兵编号！我方颜色！
  * @param[in] message 我方全体机器人血量话题id
  * @param[in] friend_color 我方颜色
  */
