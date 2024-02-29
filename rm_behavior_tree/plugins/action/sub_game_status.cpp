@@ -14,7 +14,7 @@ BT::NodeStatus SubGameStatusAction::onTick(
 {
   if (last_msg)  // empty if no new message received, since the last tick
   {
-    RCLCPP_INFO(
+    RCLCPP_DEBUG(
       logger(), "[%s] new message, game_progress: %s", name().c_str(),
       std::to_string(last_msg->game_progress).c_str());
     setOutput("game_status", *last_msg);

@@ -14,7 +14,7 @@ BT::NodeStatus SubAllRobotHPAction::onTick(
 {
   if (last_msg)  // empty if no new message received, since the last tick
   {
-    RCLCPP_INFO(
+    RCLCPP_DEBUG(
       logger(), "[%s] new message, red_1_robot_hp: %s", name().c_str(),
       std::to_string(last_msg->red_1_robot_hp).c_str());
     setOutput("robot_hp", *last_msg);

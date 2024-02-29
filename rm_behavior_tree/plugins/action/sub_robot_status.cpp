@@ -14,7 +14,7 @@ BT::NodeStatus SubRobotStatusAction::onTick(
 {
   if (last_msg)  // empty if no new message received, since the last tick
   {
-    RCLCPP_INFO(
+    RCLCPP_DEBUG(
       logger(), "[%s] new message, shooter_heat: %s", name().c_str(),
       std::to_string(last_msg->shooter_heat).c_str());
     setOutput("robot_status", *last_msg);
