@@ -3,6 +3,9 @@
     <include path="rm_behavior_tree.xml"/>
     <!-- Description of Node Models (used by Groot) -->
     <TreeNodesModel>
+        <Action ID="GetCurrentLocation" editable="true">
+            <output_port name="current_location" default="{current_location}"/>
+        </Action>
         <Action ID="IsAttaked" editable="true">
             <input_port name="message" default="{robot_status}"/>
         </Action>

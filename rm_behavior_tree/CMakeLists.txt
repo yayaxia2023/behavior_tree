@@ -80,4 +80,9 @@ ament_auto_add_library(sub_game_status SHARED
 )
 add_target_dependencies(sub_game_status)
 
+ament_auto_add_library(get_current_location SHARED 
+    plugins/action/get_current_location.cpp
+)
+add_target_dependencies(get_current_location)
+
 ament_auto_package()

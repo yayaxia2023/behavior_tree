@@ -5,7 +5,8 @@
     <Sequence>
       <SubAllRobotHP topic_name="robot_hp"
                      robot_hp="{robot_hp}"/>
-      <SubRobotStatus topic_name="robot_status"
+      <GetCurrentLocation current_location="{current_location}"/>
+      <!-- <SubRobotStatus topic_name="robot_status"
                       robot_status="{robot_status}"/>
       <SubGameStatus topic_name="game_status"
                      game_status="{game_status}"/>
@@ -33,7 +34,7 @@
         </IfThenElse>
         <SendGoal name="Home"
                   goal_pose="0;0;0; 0;0;0;1"/>
-      </IfThenElse>
+      </IfThenElse> -->
     </Sequence>
   </BehaviorTree>
 
@@ -64,6 +65,11 @@
                   default="100"/>
       <input_port name="heat_threshold"
                   default="350"/>
+    </Action>
+    <Action ID="GetCurrentLocation"
+            editable="true">
+      <output_port name="current_location"
+                  default="{current_location}"/>
     </Action>
     <Action ID="SendGoal"
             editable="true">
