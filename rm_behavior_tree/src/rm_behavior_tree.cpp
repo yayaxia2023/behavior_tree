@@ -21,6 +21,10 @@ int main(int argc, char ** argv)
   BT::RosNodeParams params_update_msg;
   params_update_msg.nh = std::make_shared<rclcpp::Node>("update_msg");
 
+  BT::RosNodeParams params_scan_status;
+  params_scan_status.nh = std::make_shared<rclcpp::Node>("scan_status");
+  params_scan_status.default_port_value = "scan_status";
+
   BT::RosNodeParams params_send_goal;
   params_send_goal.nh = std::make_shared<rclcpp::Node>("send_goal");
   params_send_goal.default_port_value = "goal_pose";
@@ -35,6 +39,7 @@ int main(int argc, char ** argv)
   const std::vector<std::string> bt_plugin_libs = {
     "is_game_start",
     "is_status_ok",
+    "is_detect_enemy",
     "is_attacked",
     "is_friend_ok",
     "get_current_location",

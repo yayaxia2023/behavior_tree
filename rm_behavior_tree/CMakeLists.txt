@@ -59,6 +59,11 @@ ament_auto_add_library(is_friend_ok SHARED
 )
 add_target_dependencies(is_friend_ok)
 
+ament_auto_add_library(is_detect_enemy SHARED 
+    plugins/condition/is_detect_enemy.cpp
+)
+add_target_dependencies(is_detect_enemy)
+
 # Actions
 ament_auto_add_library(send_goal SHARED 
     plugins/action/send_goal.cpp
@@ -84,5 +89,10 @@ ament_auto_add_library(get_current_location SHARED
     plugins/action/get_current_location.cpp
 )
 add_target_dependencies(get_current_location)
+
+ament_auto_add_library(scan_status SHARED 
+    plugins/action/scan_status.cpp
+)
+add_target_dependencies(scan_status)
 
 ament_auto_package()
