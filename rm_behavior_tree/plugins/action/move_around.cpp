@@ -17,6 +17,19 @@ MoveAroundAction::MoveAroundAction(const std::string & name, const BT::NodeConfi
 
 BT::NodeStatus MoveAroundAction::onStart()
 {
+  current_location.header.frame_id = "map";
+  current_location.transform.translation.x = 0.0;
+  current_location.transform.translation.y = 0.0;
+  current_location.transform.translation.z = 0.0;
+  current_location.transform.rotation.x = 0.0;
+  current_location.transform.rotation.y = 0.0;
+  current_location.transform.rotation.z = 0.0;
+  current_location.transform.rotation.w = 1.0;
+
+  expected_dis = 0.0;
+  expected_nearby_goal_count = 0;
+  goal_count = 0;
+
   // 获取参数：机器人当前位置坐标的blackboard映射
   if (!getInput("message", current_location)) {
     std::cout << "missing required input [current_location]" << '\n';
