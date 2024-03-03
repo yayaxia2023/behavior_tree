@@ -32,7 +32,7 @@ BT::NodeStatus GetCurrentLocationAction::tick()
   geometry_msgs::msg::TransformStamped t;
 
   try {
-    t = tf_buffer_->lookupTransform("base_link", "map", tf2::TimePointZero);
+    t = tf_buffer_->lookupTransform("map", "base_link", tf2::TimePointZero);
     setOutput("current_location", t);
 
     RCLCPP_DEBUG(
