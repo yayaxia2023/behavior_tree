@@ -65,16 +65,20 @@
 
 ## 使用 Groot 可视化行为树
 
-1. 安装 [Groot](https://www.behaviortree.dev/groot)
+1. 下载 [Groot Linux installer](https://www.behaviortree.dev/groot)
+
+2. 安装 Groot
 
     ```zsh
-    git clone https://github.com/BehaviorTree/BehaviorTree.ROS2
-    cd BehaviorTree.ROS2
-    mkdir build
-    cd build
-    cmake ..
-    make -j
-    sudo make install
+    chmod +x Groot2-*-linux-installer.run
+    ./Groot2-*-linux-installer.run
     ```
 
-2. 在 Groot 中打开 [rm_behavior_tree.xml](./rm_behavior_tree/rm_behavior_tree.xml)
+3. 运行 Groot
+
+    ```zsh
+    cd ~/Groot2/bin
+    ./groot2
+    ```
+
+4. 在 Groot 中打开 [rm_behavior_tree.xml](./rm_behavior_tree/rm_behavior_tree.xml)
