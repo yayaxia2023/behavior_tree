@@ -17,21 +17,8 @@ BT::NodeStatus IsAttakedAction::checkRobotAttacked()
     return BT::NodeStatus::FAILURE;
   }
 
-  std::map<int, std::string> hp_deduction_reason_map = {
-    {0, "装甲模块被弹丸攻击导致扣血"}, {1, "裁判系统重要模块离线导致扣血"},
-    {2, "射击初速度超限导致扣血"},     {3, "枪口热量超限导致扣血"},
-    {4, "底盘功率超限导致扣血"},       {5, "装甲模块受到撞击导致扣血"},
-  };
-
-  int hp_deduction_reason = msg->hp_deduction_reason;
-  if (hp_deduction_reason_map.find(hp_deduction_reason) != hp_deduction_reason_map.end()) {
-    std::cout << hp_deduction_reason_map[hp_deduction_reason] << '\n';
-  } else {
-    std::cout << "未知扣血原因" << '\n';
-  }
-
-  if (hp_deduction_reason == 0 || hp_deduction_reason == 5) {
-    // 弹丸攻击导致扣血 or 装甲模块受到撞击导致扣血
+  if (msg->is_attacked) {
+    // 机器人受到攻击
     return BT::NodeStatus::SUCCESS;
   }
 

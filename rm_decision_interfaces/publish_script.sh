@@ -6,7 +6,8 @@ ros2 topic pub -r 10 /robot_status rm_decision_interfaces/msg/RobotStatus "{
     robot_id: 7,
     current_hp: 200,
     shooter_heat: 19,
-    hp_deduction_reason: 0,
+    team_color: 0,
+    is_attacked: 0,
 }" &
 
 ros2 topic pub -r 1 /game_status rm_decision_interfaces/msg/GameStatus "{
