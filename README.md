@@ -1,18 +1,11 @@
 # rm_behavior_tree
 
-仍在开发中...
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![State-of-the-art Shitcode](https://img.shields.io/static/v1?label=State-of-the-art&message=Shitcode&color=7B5804)](https://github.com/trekhleb/state-of-the-art-shitcode)
 
-本仓库为 [pb_rm_simulation](https://gitee.com/SMBU-POLARBEAR/pb_rmsimulation) 的子仓库
+仍在开发中... 屎山代码，请勿用于生产环境
 
-## 环境配置
-
-当前开发环境为 Ubuntu22.04, ROS2 humble
-
-1. 安装依赖
-
-    ```bash
-    sudo apt install ros-humble-behaviortree-cpp
-    ```
+本仓库为 [RM2024_SMBU_auto_sentry_ws](https://gitee.com/SMBU-POLARBEAR/RM2024_SMBU_auto_sentry_ws) 的子模块，**与父仓库的其他模块存在依赖关系**
 
 ## 文件结构
 
@@ -32,3 +25,56 @@
 - rm_decision_interfaces
 
     对接裁判系统的自定义 ROS 消息类型
+
+## 环境配置
+
+当前开发环境为 Ubuntu22.04, ROS2 humble, BehaviorTree.CPP 4.5
+
+1. 安装依赖
+
+    ```zsh
+    sudo apt install ros-humble-behaviortree-cpp
+    ```
+
+2. 克隆仓库
+
+    ```zsh
+    git clone https://gitee.com/SMBU-POLARBEAR/rm_behavior_tree.git
+    cd rm_behavior_tree
+    ```
+
+3. 编译
+
+    ```zsh
+    colcon build --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+    ```
+
+## 使用方法
+
+1. 开启[虚拟裁判系统话题发布](./rm_decision_interfaces/publish_script.sh)
+
+    ```zsh
+    ./rm_decision_ws/rm_decision_interfaces/publish_script.sh
+    ```
+
+2. 启动行为树
+
+    ```zsh
+    ros2 run rm_behavior_tree rm_behavior_tree
+    ```
+
+## 使用 Groot 可视化行为树
+
+1. 安装 [Groot](https://www.behaviortree.dev/groot)
+
+    ```zsh
+    git clone https://github.com/BehaviorTree/BehaviorTree.ROS2
+    cd BehaviorTree.ROS2
+    mkdir build
+    cd build
+    cmake ..
+    make -j
+    sudo make install
+    ```
+
+2. 在 Groot 中打开 [rm_behavior_tree.xml](./rm_behavior_tree/rm_behavior_tree.xml)
