@@ -85,4 +85,9 @@ ament_auto_add_library(get_current_location SHARED
 )
 add_target_dependencies(get_current_location)
 
+ament_auto_add_library(move_around SHARED 
+    plugins/action/move_around.cpp
+)
+add_target_dependencies(move_around)
+
 ament_auto_package()

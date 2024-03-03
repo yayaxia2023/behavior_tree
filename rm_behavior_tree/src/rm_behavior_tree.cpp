@@ -38,6 +38,7 @@ int main(int argc, char ** argv)
     "is_attacked",
     "is_friend_ok",
     "get_current_location",
+    "move_around",
   };
   // clang-format on
 

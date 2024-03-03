@@ -1,7 +1,5 @@
 #include "rm_behavior_tree/plugins/action/send_goal.hpp"
 
-#include <iostream>
-
 namespace rm_behavior_tree
 {
 

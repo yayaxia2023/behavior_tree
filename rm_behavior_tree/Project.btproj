@@ -21,6 +21,11 @@
             <input_port name="hp_threshold" default="100"/>
             <input_port name="heat_threshold" default="350"/>
         </Action>
+        <Action ID="MoveAround" editable="true">
+            <input_port name="expected_nearby_goal_count" default="4"/>
+            <input_port name="expected_dis" default="0.3"/>
+            <input_port name="message" default="{current_location}"/>
+        </Action>
         <Action ID="SendGoal" editable="true">
             <input_port name="goal_pose" default="0;0;0; 0;0;0;1"/>
         </Action>
