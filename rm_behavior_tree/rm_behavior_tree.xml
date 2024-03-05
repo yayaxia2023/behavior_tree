@@ -6,6 +6,8 @@
       <SubAllRobotHP topic_name="robot_hp"
                      robot_hp="{robot_hp}"/>
       <GetCurrentLocation current_location="{current_location}"/>
+      <SubArmors topic_name="/detector/armors"
+                 armors="{armors}"/>
       <SubRobotStatus topic_name="robot_status"
                       robot_status="{robot_status}"/>
       <SubGameStatus topic_name="game_status"
@@ -75,7 +77,7 @@
     <Action ID="IsDetectEnemy"
             editable="true">
       <input_port name="message"
-                  default="{robot_status}"/>
+                  default="{armors}"/>
     </Action>
     <Action ID="MoveAround"
             editable="true">
@@ -91,12 +93,24 @@
       <input_port name="goal_pose"
                   default="0;0;0; 0;0;0;1"/>
     </Action>
+    <Action ID="ScanStatus"
+            editable="true">
+      <input_port name="scan_status"
+                  default="False"/>
+    </Action>
     <Action ID="SubAllRobotHP"
             editable="true">
       <input_port name="topic_name"
                   default="robot_hp"/>
       <output_port name="robot_hp"
                    default="{robot_hp}"/>
+    </Action>
+    <Action ID="SubArmors"
+            editable="true">
+      <input_port name="topic_name"
+                  default="/detector/armors"/>
+      <output_port name="armors"
+                   default="{armors}"/>
     </Action>
     <Action ID="SubGameStatus"
             editable="true">

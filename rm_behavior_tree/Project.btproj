@@ -9,6 +9,9 @@
         <Action ID="IsAttaked" editable="true">
             <input_port name="message" default="{robot_status}"/>
         </Action>
+        <Action ID="IsDetectEnemy" editable="true">
+            <input_port name="message" default="{robot_status}"/>
+        </Action>
         <Action ID="IsFriendOK" editable="true">
             <input_port name="message" default="{robot_hp}"/>
             <input_port name="friend_color" default="red"/>
@@ -32,6 +35,10 @@
         <Action ID="SubAllRobotHP" editable="true">
             <input_port name="topic_name" default="robot_hp"/>
             <output_port name="robot_hp" default="{robot_hp}"/>
+        </Action>
+        <Action ID="SubArmors" editable="true">
+            <input_port name="topic_name" default="/detector/armors"/>
+            <output_port name="armors" default="{armors}"/>
         </Action>
         <Action ID="SubGameStatus" editable="true">
             <input_port name="topic_name" default="game_status"/>

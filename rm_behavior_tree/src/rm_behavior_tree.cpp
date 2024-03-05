@@ -34,6 +34,7 @@ int main(int argc, char ** argv)
     "sub_all_robot_hp",
     "sub_robot_status",
     "sub_game_status",
+    "sub_armors",
   };
 
   const std::vector<std::string> bt_plugin_libs = {

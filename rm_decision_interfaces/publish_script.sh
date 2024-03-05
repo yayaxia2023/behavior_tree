@@ -34,4 +34,22 @@ ros2 topic pub -r 3 /robot_hp rm_decision_interfaces/msg/AllRobotHP "{
     blue_base_hp: 25
 }" &
 
+ros2 topic pub -r 5 /detector/armors auto_aim_interfaces/msg/Armors "{
+  header: {
+    stamp: {sec: 0, nanosec: 0},
+    frame_id: 'my_frame'
+  },
+  armors: [
+    {
+      number: '1',
+      type: '0',
+      distance_to_image_center: 1.0,
+      pose: {
+        position: {x: 0.0, y: 0.0, z: 0.0},
+        orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}
+      }
+    }
+  ]
+}" &
+
 wait

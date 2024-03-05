@@ -85,6 +85,11 @@ ament_auto_add_library(sub_game_status SHARED
 )
 add_target_dependencies(sub_game_status)
 
+ament_auto_add_library(sub_armors SHARED 
+    plugins/action/sub_armors.cpp
+)
+add_target_dependencies(sub_armors)
+
 ament_auto_add_library(get_current_location SHARED 
     plugins/action/get_current_location.cpp
 )
