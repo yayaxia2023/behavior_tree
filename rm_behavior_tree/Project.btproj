@@ -10,7 +10,7 @@
             <input_port name="message" default="{robot_status}"/>
         </Action>
         <Action ID="IsDetectEnemy" editable="true">
-            <input_port name="message" default="{robot_status}"/>
+            <input_port name="message" default="{armors}"/>
         </Action>
         <Action ID="IsFriendOK" editable="true">
             <input_port name="message" default="{robot_hp}"/>
@@ -28,6 +28,9 @@
             <input_port name="expected_nearby_goal_count" default="5"/>
             <input_port name="expected_dis" default="0.3"/>
             <input_port name="message" default="{current_location}"/>
+        </Action>
+        <Action ID="ScanStatus" editable="true">
+            <input_port name="scan_status" default="False"/>
         </Action>
         <Action ID="SendGoal" editable="true">
             <input_port name="goal_pose" default="0;0;0; 0;0;0;1"/>

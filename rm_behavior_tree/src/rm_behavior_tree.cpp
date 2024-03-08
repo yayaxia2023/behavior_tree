@@ -57,6 +57,7 @@ int main(int argc, char ** argv)
   }
 
   RegisterRosNode(factory, BT::SharedLibrary::getOSName("send_goal"), params_send_goal);
+  RegisterRosNode(factory, BT::SharedLibrary::getOSName("scan_status"), params_scan_status);
 
   // Allow Groot2 to visualize custom type
   BT::RegisterJsonDefinition<geometry_msgs::msg::PoseStamped>(PoseStampedToJson);
