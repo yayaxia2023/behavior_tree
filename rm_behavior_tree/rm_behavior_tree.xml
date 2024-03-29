@@ -4,14 +4,14 @@
   <BehaviorTree ID="BehaviorTree">
     <Sequence>
       <SubAllRobotHP topic_name="robot_hp"
-                     robot_hp="{robot_hp}"/>
+                      robot_hp="{robot_hp}"/>
       <GetCurrentLocation current_location="{current_location}"/>
       <SubArmors topic_name="/detector/armors"
-                 armors="{armors}"/>
+                  armors="{armors}"/>
       <SubRobotStatus topic_name="robot_status"
                       robot_status="{robot_status}"/>
       <SubGameStatus topic_name="game_status"
-                     game_status="{game_status}"/>
+                      game_status="{game_status}"/>
       <IfThenElse>
         <IsGameStart message="{game_status}"/>
         <Sequence>
@@ -104,6 +104,9 @@
       <input_port name="message"
                   default="{current_location}"/>
     </Action>
+    <Decorator ID="RateController">
+      <input_port name="hz">Rate</input_port>
+    </Decorator>
     <Action ID="ScanStatus"
             editable="true">
       <input_port name="scan_status"

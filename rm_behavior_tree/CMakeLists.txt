@@ -38,6 +38,12 @@ ament_auto_add_executable(rm_behavior_tree
     src/rm_behavior_tree.cpp
 )
 
+# Decorators
+ament_auto_add_library(rate_controller SHARED 
+    plugins/decorator/rate_controller.cpp
+)
+add_target_dependencies(rate_controller)
+
 # Conditions
 ament_auto_add_library(is_game_start SHARED 
     plugins/condition/is_game_start.cpp

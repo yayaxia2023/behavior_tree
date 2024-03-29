@@ -29,6 +29,9 @@
             <input_port name="expected_dis" default="0.3"/>
             <input_port name="message" default="{current_location}"/>
         </Action>
+        <Decorator ID="RateController">
+            <input_port name="hz">Rate</input_port>
+        </Decorator>
         <Action ID="ScanStatus" editable="true">
             <input_port name="scan_status" default="False"/>
         </Action>
