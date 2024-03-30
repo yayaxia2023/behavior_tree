@@ -1,7 +1,5 @@
 #include "rm_behavior_tree/plugins/action/scan_status.hpp"
 
-#include <iostream>
-
 namespace rm_behavior_tree
 {
 

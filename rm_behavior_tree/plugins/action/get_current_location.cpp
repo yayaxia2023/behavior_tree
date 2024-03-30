@@ -53,7 +53,7 @@ BT::NodeStatus GetCurrentLocationAction::tick()
 
     return BT::NodeStatus::SUCCESS;
   } catch (const tf2::TransformException & ex) {
-    RCLCPP_ERROR(logger_, "Failed to transform base_link to map: %s", ex.what());
+    RCLCPP_WARN(logger_, "Failed to transform base_link to map: %s", ex.what());
     return BT::NodeStatus::FAILURE;
   }
 }
