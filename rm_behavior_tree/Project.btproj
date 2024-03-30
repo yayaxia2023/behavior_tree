@@ -37,6 +37,7 @@
         </Action>
         <Action ID="SendGoal" editable="true">
             <input_port name="goal_pose" default="0;0;0; 0;0;0;1"/>
+            <input_port name="action_name" default="navigate_to_pose"/>
         </Action>
         <Action ID="SubAllRobotHP" editable="true">
             <input_port name="topic_name" default="robot_hp"/>

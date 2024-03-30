@@ -5,41 +5,73 @@ namespace rm_behavior_tree
 
 SendGoalAction::SendGoalAction(
   const std::string & name, const BT::NodeConfig & conf, const BT::RosNodeParams & params)
-: RosTopicPubNode<geometry_msgs::msg::PoseStamped>(name, conf, params)
+: RosActionNode<nav2_msgs::action::NavigateToPose>(name, conf, params)
 {
 }
 
-bool SendGoalAction::setMessage(geometry_msgs::msg::PoseStamped & msg)
+bool SendGoalAction::setGoal(nav2_msgs::action::NavigateToPose::Goal & goal)
 {
   auto res = getInput<geometry_msgs::msg::PoseStamped>("goal_pose");
   if (!res) {
     throw BT::RuntimeError("error reading port [goal_pose]:", res.error());
   }
-  geometry_msgs::msg::PoseStamped goal = res.value();
-
-  msg.header.stamp = rclcpp::Clock().now();
-  msg.header.frame_id = "map";
-  msg.pose.position.x = goal.pose.position.x;
-  msg.pose.position.y = goal.pose.position.y;
-  msg.pose.position.z = goal.pose.position.z;
-  msg.pose.orientation.x = goal.pose.orientation.x;
-  msg.pose.orientation.y = goal.pose.orientation.y;
-  msg.pose.orientation.z = goal.pose.orientation.z;
-  msg.pose.orientation.w = goal.pose.orientation.w;
+  goal.pose = res.value();
+  goal.pose.header.frame_id = "map";
+  goal.pose.header.stamp = rclcpp::Clock().now();
 
   // clang-format off
   std::cout << "Goal_pose: [ "
     << std::fixed << std::setprecision(1)
-    << goal.pose.position.x << ", "
-    << goal.pose.position.y << ", "
-    << goal.pose.position.z << ", "
-    << goal.pose.orientation.x << ", "
-    << goal.pose.orientation.y << ", "
-    << goal.pose.orientation.z << ", "
-    << goal.pose.orientation.w << " ]\n";
+    << goal.pose.pose.position.x << ", "
+    << goal.pose.pose.position.y << ", "
+    << goal.pose.pose.position.z << ", "
+    << goal.pose.pose.orientation.x << ", "
+    << goal.pose.pose.orientation.y << ", "
+    << goal.pose.pose.orientation.z << ", "
+    << goal.pose.pose.orientation.w << " ]\n";
   // clang-format on
 
   return true;
+}
+
+void SendGoalAction::onHalt()
+{
+  RCLCPP_INFO(node_->get_logger(), "SendGoalAction has been halted.");
+}
+
+BT::NodeStatus SendGoalAction::onResultReceived(const WrappedResult & wr)
+{
+  switch (wr.code) {
+    case rclcpp_action::ResultCode::SUCCEEDED:
+      std::cout << "Success!!!" << '\n';
+      return BT::NodeStatus::SUCCESS;
+      break;
+    case rclcpp_action::ResultCode::ABORTED:
+      std::cout << "Goal was aborted" << '\n';
+      return BT::NodeStatus::FAILURE;
+      break;
+    case rclcpp_action::ResultCode::CANCELED:
+      std::cout << "Goal was canceled" << '\n';
+      return BT::NodeStatus::FAILURE;
+      break;
+    default:
+      std::cout << "Unknown result code" << '\n';
+      return BT::NodeStatus::FAILURE;
+      break;
+  }
+}
+
+BT::NodeStatus SendGoalAction::onFeedback(
+  const std::shared_ptr<const nav2_msgs::action::NavigateToPose::Feedback> feedback)
+{
+  std::cout << "Distance remaining: " << feedback->distance_remaining << '\n';
+  return BT::NodeStatus::RUNNING;
+}
+
+BT::NodeStatus SendGoalAction::onFailure(BT::ActionNodeErrorCode error)
+{
+  RCLCPP_ERROR(node_->get_logger(), "SendGoalAction failed with error code: %d", error);
+  return BT::NodeStatus::FAILURE;
 }
 
 }  // namespace rm_behavior_tree
