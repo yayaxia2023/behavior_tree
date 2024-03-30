@@ -1,4 +1,4 @@
-#include "rm_behavior_tree/plugins/action/scan_status.hpp"
+#include "rm_behavior_tree/plugins/action/stop_scan_status.hpp"
 
 namespace rm_behavior_tree
 {
@@ -11,17 +11,17 @@ ScanStatusAction::ScanStatusAction(
 
 bool ScanStatusAction::setMessage(std_msgs::msg::Bool & msg)
 {
-  auto res = getInput<bool>("scan_status");
+  auto res = getInput<bool>("stop_scan_status");
   if (!res) {
-    throw BT::RuntimeError("error reading port [scan_status]:", res.error());
+    throw BT::RuntimeError("error reading port [stop_scan_status]:", res.error());
   }
-  bool scan_status = res.value();
+  bool stop_scan_status = res.value();
 
-  msg.data = scan_status;
+  msg.data = stop_scan_status;
 
   // clang-format off
-  std::cout << "Scan_status: [ "
-    << scan_status<<" ]\n";
+  std::cout << "stop_scan_status: [ "
+    << stop_scan_status<<" ]\n";
   // clang-format on
 
   return true;

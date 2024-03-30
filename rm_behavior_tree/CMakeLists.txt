@@ -106,9 +106,9 @@ ament_auto_add_library(move_around SHARED
 )
 add_target_dependencies(move_around)
 
-ament_auto_add_library(scan_status SHARED 
-    plugins/action/scan_status.cpp
+ament_auto_add_library(stop_scan_status SHARED 
+    plugins/action/stop_scan_status.cpp
 )
-add_target_dependencies(scan_status)
+add_target_dependencies(stop_scan_status)
 
 ament_auto_package()

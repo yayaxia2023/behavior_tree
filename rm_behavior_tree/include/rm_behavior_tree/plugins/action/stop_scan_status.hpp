@@ -1,5 +1,5 @@
-#ifndef RM_BEHAVIOR_TREE__PLUGINS__ACTION__SCAN_STATUS_HPP_
-#define RM_BEHAVIOR_TREE__PLUGINS__ACTION__SCAN_STATUS_HPP_
+#ifndef RM_BEHAVIOR_TREE__PLUGINS__ACTION__STOP_SCAN_STATUS_HPP_
+#define RM_BEHAVIOR_TREE__PLUGINS__ACTION__STOP_SCAN_STATUS_HPP_
 
 #include "behaviortree_ros2/bt_topic_pub_node.hpp"
 #include "std_msgs/msg/bool.hpp"
@@ -15,8 +15,8 @@ public:
 
   bool setMessage(std_msgs::msg::Bool & msg) override;
 
-  static BT::PortsList providedPorts() { return {BT::InputPort<bool>("scan_status")}; }
+  static BT::PortsList providedPorts() { return {BT::InputPort<bool>("stop_scan_status")}; }
 };
 }  // namespace rm_behavior_tree
 
-#endif  // RM_BEHAVIOR_TREE__PLUGINS__ACTION__SEND_GOAL_HPP_
+#endif  // RM_BEHAVIOR_TREE__PLUGINS__ACTION__STOP_SCAN_STATUS_HPP_
