@@ -21,9 +21,9 @@ int main(int argc, char ** argv)
   BT::RosNodeParams params_update_msg;
   params_update_msg.nh = std::make_shared<rclcpp::Node>("update_msg");
 
-  BT::RosNodeParams params_stop_scan_status;
-  params_stop_scan_status.nh = std::make_shared<rclcpp::Node>("stop_scan_status");
-  params_stop_scan_status.default_port_value = "stop_scan_status";
+  BT::RosNodeParams params_robot_control;
+  params_robot_control.nh = std::make_shared<rclcpp::Node>("robot_control");
+  params_robot_control.default_port_value = "robot_control";
 
   BT::RosNodeParams params_send_goal;
   params_send_goal.nh = std::make_shared<rclcpp::Node>("send_goal");
@@ -58,8 +58,8 @@ int main(int argc, char ** argv)
   }
 
   RegisterRosNode(factory, BT::SharedLibrary::getOSName("send_goal"), params_send_goal);
-  RegisterRosNode(
-    factory, BT::SharedLibrary::getOSName("stop_scan_status"), params_stop_scan_status);
+
+  RegisterRosNode(factory, BT::SharedLibrary::getOSName("robot_control"), params_robot_control);
 
   // Allow Groot2 to visualize custom type
   BT::RegisterJsonDefinition<geometry_msgs::msg::PoseStamped>(PoseStampedToJson);
