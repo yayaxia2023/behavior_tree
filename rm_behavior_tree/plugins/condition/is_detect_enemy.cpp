@@ -18,13 +18,12 @@ BT::NodeStatus IsDetectEnemyAction::detectEnemyStatus()
   }
 
   if (msg->armors.empty()) {
-    std::cout << "未检测到敌人" << '\n';
+    // std::cout << "未检测到敌人" << '\n';
     return BT::NodeStatus::FAILURE;
   } else {
-    std::cout << "检测到敌人" << '\n';
+    // std::cout << "检测到敌人" << '\n';
     return BT::NodeStatus::SUCCESS;
   }
-
 }
 
 }  // namespace rm_behavior_tree

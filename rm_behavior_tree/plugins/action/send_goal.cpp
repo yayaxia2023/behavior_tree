@@ -43,28 +43,29 @@ BT::NodeStatus SendGoalAction::onResultReceived(const WrappedResult & wr)
 {
   switch (wr.code) {
     case rclcpp_action::ResultCode::SUCCEEDED:
-      std::cout << "Success!!!" << '\n';
+      RCLCPP_INFO(node_->get_logger(), "Success!!!");
       return BT::NodeStatus::SUCCESS;
       break;
     case rclcpp_action::ResultCode::ABORTED:
-      std::cout << "Goal was aborted" << '\n';
+      RCLCPP_INFO(node_->get_logger(), "Goal was aborted");
       return BT::NodeStatus::FAILURE;
       break;
     case rclcpp_action::ResultCode::CANCELED:
+      RCLCPP_INFO(node_->get_logger(), "Goal was canceled");
       std::cout << "Goal was canceled" << '\n';
       return BT::NodeStatus::FAILURE;
       break;
     default:
-      std::cout << "Unknown result code" << '\n';
+      RCLCPP_INFO(node_->get_logger(), "Unknown result code");
       return BT::NodeStatus::FAILURE;
       break;
   }
 }
 
 BT::NodeStatus SendGoalAction::onFeedback(
-  const std::shared_ptr<const nav2_msgs::action::NavigateToPose::Feedback> feedback)
+  const std::shared_ptr<const nav2_msgs::action::NavigateToPose::Feedback> /*feedback*/)
 {
-  std::cout << "Distance remaining: " << feedback->distance_remaining << '\n';
+  // std::cout << "Distance remaining: " << feedback->distance_remaining << '\n';
   return BT::NodeStatus::RUNNING;
 }
 

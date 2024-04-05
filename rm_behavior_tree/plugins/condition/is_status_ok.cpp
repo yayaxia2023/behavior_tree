@@ -17,15 +17,15 @@ BT::NodeStatus IsStatusOKAction::checkRobotStatus()
 
   if (!msg) {
     // throw BT::RuntimeError("missing required input [game_status]: ", msg.error());
-    std::cout << "missing required input [game_status]" << '\n';
+    // std::cout << "missing required input [game_status]" << '\n';
     return BT::NodeStatus::FAILURE;
   }
 
   if (msg->current_hp < hp_threshold || msg->shooter_heat > heat_threshold) {
-    std::cout << "血量/热量达到预警值" << '\n';
+    // std::cout << "血量/热量达到预警值" << '\n';
     return BT::NodeStatus::FAILURE;
   } else {
-    std::cout << "血量/热量正常" << '\n';
+    // std::cout << "血量/热量正常" << '\n';
     return BT::NodeStatus::SUCCESS;
   }
 }

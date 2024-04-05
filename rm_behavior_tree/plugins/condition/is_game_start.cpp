@@ -12,7 +12,7 @@ BT::NodeStatus IsGameStartCondition::checkGameStart()
 {
   auto msg = getInput<rm_decision_interfaces::msg::GameStatus>("message");
   if (!msg) {
-    std::cout << "missing required input [game_status]" << '\n';
+    // std::cout << "missing required input [game_status]" << '\n';
     return BT::NodeStatus::FAILURE;
   }
 
@@ -22,10 +22,10 @@ BT::NodeStatus IsGameStartCondition::checkGameStart()
   };
 
   if (game_status_map.find(msg->game_progress) != game_status_map.end()) {
-    std::cout << game_status_map[msg->game_progress] << '\n';
+    // std::cout << game_status_map[msg->game_progress] << '\n';
     return (msg->game_progress == 4) ? BT::NodeStatus::SUCCESS : BT::NodeStatus::FAILURE;
   } else {
-    std::cout << "未知状态" << '\n';
+    // std::cout << "未知状态" << '\n';
     return BT::NodeStatus::FAILURE;
   }
 }

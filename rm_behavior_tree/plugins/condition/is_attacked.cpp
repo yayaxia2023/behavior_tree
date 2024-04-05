@@ -13,7 +13,7 @@ BT::NodeStatus IsAttakedAction::checkRobotAttacked()
   auto msg = getInput<rm_decision_interfaces::msg::RobotStatus>("message");
 
   if (!msg) {
-    std::cout << "missing required input [game_status]" << '\n';
+    // std::cout << "missing required input [game_status]" << '\n';
     return BT::NodeStatus::FAILURE;
   }
 

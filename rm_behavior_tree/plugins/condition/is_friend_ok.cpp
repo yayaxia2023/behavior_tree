@@ -37,10 +37,10 @@ BT::NodeStatus IsFriendOKAction::checkFriendStatus()
   // clang-format on
 
   if (friend_average_hp > enemy_average_hp) {
-    std::cout << "我方血量优势" << '\n';
+    // std::cout << "我方血量优势" << '\n';
     return BT::NodeStatus::SUCCESS;
   } else {
-    std::cout << "我方血量劣势" << '\n';
+    // std::cout << "我方血量劣势" << '\n';
     return BT::NodeStatus::FAILURE;
   }
 }

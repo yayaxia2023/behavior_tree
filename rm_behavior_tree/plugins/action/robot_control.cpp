@@ -14,8 +14,8 @@ bool RobotControlAction::setMessage(rm_decision_interfaces::msg::RobotControl & 
   getInput("stop_gimbal_scan", msg.stop_gimbal_scan);
   getInput("chassis_spin_vel", msg.chassis_spin_vel);
 
-  std::cout << "stop_gimbal_scan: " << msg.stop_gimbal_scan << '\n';
-  std::cout << "chassis_spin_vel: " << msg.chassis_spin_vel << '\n';
+  // std::cout << "stop_gimbal_scan: " << msg.stop_gimbal_scan << '\n';
+  // std::cout << "chassis_spin_vel: " << msg.chassis_spin_vel << '\n';
 
   return true;
 }

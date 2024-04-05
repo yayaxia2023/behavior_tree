@@ -4,7 +4,7 @@ source install/setup.zsh
 
 ros2 topic pub -r 10 /robot_status rm_decision_interfaces/msg/RobotStatus "{
     robot_id: 7,
-    current_hp: 20,
+    current_hp: 600,
     shooter_heat: 19,
     team_color: 0,
     is_attacked: 0,
@@ -39,17 +39,17 @@ ros2 topic pub -r 5 /detector/armors auto_aim_interfaces/msg/Armors "{
     stamp: {sec: 0, nanosec: 0},
     frame_id: 'my_frame'
   },
-  armors: [
-    {
-      number: '1',
-      type: '0',
-      distance_to_image_center: 1.0,
-      pose: {
-        position: {x: 0.0, y: 0.0, z: 0.0},
-        orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}
-      }
-    }
-  ]
+  # armors: [
+  #   {
+  #     number: '1',
+  #     type: '0',
+  #     distance_to_image_center: 1.0,
+  #     pose: {
+  #       position: {x: 0.0, y: 0.0, z: 0.0},
+  #       orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}
+  #     }
+  #   }
+  # ]
 }" &
 
 wait

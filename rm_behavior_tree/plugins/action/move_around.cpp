@@ -32,19 +32,19 @@ BT::NodeStatus MoveAroundAction::onStart()
 
   // 获取参数：机器人当前位置坐标的blackboard映射
   if (!getInput("message", current_location)) {
-    std::cout << "missing required input [current_location]" << '\n';
+    // std::cout << "missing required input [current_location]" << '\n';
     return BT::NodeStatus::FAILURE;
   }
 
   // 获取参数：期望的距离
   if (!getInput("expected_dis", expected_dis)) {
-    std::cout << "missing required input [expected_dis]" << '\n';
+    // std::cout << "missing required input [expected_dis]" << '\n';
     return BT::NodeStatus::FAILURE;
   }
 
   // 获取参数：期望的点位数量
   if (!getInput("expected_nearby_goal_count", expected_nearby_goal_count)) {
-    std::cout << "missing required input [expected_nearby_goal_count]" << '\n';
+    // std::cout << "missing required input [expected_nearby_goal_count]" << '\n';
     return BT::NodeStatus::FAILURE;
   }
 
@@ -59,9 +59,9 @@ BT::NodeStatus MoveAroundAction::onStart()
 
 BT::NodeStatus MoveAroundAction::onRunning()
 {
-  std::cout << "expected_nearby_goal_count: " << expected_nearby_goal_count << '\n';
-  std::cout << "goal_count: " << goal_count << '\n';
-  std::cout << "expected_dis: " << expected_dis << '\n';
+  // std::cout << "expected_nearby_goal_count: " << expected_nearby_goal_count << '\n';
+  // std::cout << "goal_count: " << goal_count << '\n';
+  // std::cout << "expected_dis: " << expected_dis << '\n';
 
   if (expected_nearby_goal_count == goal_count) {
     return BT::NodeStatus::SUCCESS;
@@ -77,7 +77,7 @@ BT::NodeStatus MoveAroundAction::onRunning()
 void MoveAroundAction::onHalted()
 {
   // nothing to do here...
-  std::cout << "MoveAroundAction interrupted" << '\n';
+  // std::cout << "MoveAroundAction interrupted" << '\n';
 }
 
 void MoveAroundAction::generatePoints(
@@ -116,14 +116,14 @@ void MoveAroundAction::sendGoalPose(geometry_msgs::msg::PoseStamped & msg)
   msg.pose.orientation.w = nearby_random_point.pose.orientation.w;
 
   // DEBUG
-  std::cout << "pose.position.x: " << msg.pose.position.x << '\n';
-  std::cout << "pose.position.y: " << msg.pose.position.y << '\n';
-  std::cout << "pose.position.z: " << msg.pose.position.z << '\n';
-  std::cout << "pose.orientation.x: " << msg.pose.orientation.x << '\n';
-  std::cout << "pose.orientation.y: " << msg.pose.orientation.y << '\n';
-  std::cout << "pose.orientation.z: " << msg.pose.orientation.z << '\n';
-  std::cout << "pose.orientation.w: " << msg.pose.orientation.w << '\n';
-  std::cout << "----------------" << '\n';
+  // std::cout << "pose.position.x: " << msg.pose.position.x << '\n';
+  // std::cout << "pose.position.y: " << msg.pose.position.y << '\n';
+  // std::cout << "pose.position.z: " << msg.pose.position.z << '\n';
+  // std::cout << "pose.orientation.x: " << msg.pose.orientation.x << '\n';
+  // std::cout << "pose.orientation.y: " << msg.pose.orientation.y << '\n';
+  // std::cout << "pose.orientation.z: " << msg.pose.orientation.z << '\n';
+  // std::cout << "pose.orientation.w: " << msg.pose.orientation.w << '\n';
+  // std::cout << "----------------" << '\n';
 
   publisher_goal_pose->publish(msg);
 }
