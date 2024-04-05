@@ -15,7 +15,7 @@
       <WhileDoElse>
         <IsGameStart message="{game_status}"/>
         <ReactiveSequence>
-          <WhileDoElse>
+          <WhileDoElse name="Whether gimbal_scan/chassis_spin">
             <IsDetectEnemy message="{armors}"/>
             <RobotControl stop_gimbal_scan="True"
                           chassis_spin_vel="0.5"/>
@@ -23,20 +23,33 @@
                           chassis_spin_vel="0.5"/>
           </WhileDoElse>
           <WhileDoElse>
-            <IsDetectEnemy message="{armors}"/>
-            <Fallback name="Whether interrupt navigation">
+            <Sequence>
+              <IsDetectEnemy message="{armors}"/>
               <IsStatusOK message="{robot_status}"
-                          hp_threshold="100"
+                          hp_threshold="400"
                           heat_threshold="350"/>
-              <AlwaysSuccess name="TODO: Stop Moving"/>
-            </Fallback>
+            </Sequence>
+            <WhileDoElse>
+              <IsAttaked message="{robot_status}"/>
+              <MoveAround expected_nearby_goal_count="3"
+                          expected_dis="0.3"
+                          message="{current_location}"/>
+              <Fallback name="Whether interrupt navigation">
+                <IsStatusOK message="{robot_status}"
+                            hp_threshold="250"
+                            heat_threshold="350"/>
+                <SendGoal name="SupplyArea"
+                          goal_pose="-2.5;4.07;0; 0;0;0;1"
+                          action_name="navigate_to_pose"/>
+              </Fallback>
+            </WhileDoElse>
             <WhileDoElse>
               <IsStatusOK message="{robot_status}"
-                          hp_threshold="100"
+                          hp_threshold="400"
                           heat_threshold="350"/>
               <WhileDoElse name="Attack">
                 <IsAttaked message="{robot_status}"/>
-                <MoveAround expected_nearby_goal_count="5"
+                <MoveAround expected_nearby_goal_count="3"
                             expected_dis="0.3"
                             message="{current_location}"/>
                 <WhileDoElse name="Attack">
@@ -54,7 +67,8 @@
                   </RateController>
                 </WhileDoElse>
               </WhileDoElse>
-              <RateController hz="1">
+              <RateController name="Retreat"
+                              hz="1">
                 <SendGoal name="SupplyArea"
                           goal_pose="-2.5;4.07;0; 0;0;0;1"
                           action_name="navigate_to_pose"/>
