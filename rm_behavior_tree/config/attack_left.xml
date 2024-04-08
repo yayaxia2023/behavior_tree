@@ -5,7 +5,6 @@
     <ReactiveSequence>
       <SubAllRobotHP topic_name="robot_hp"
                      robot_hp="{robot_hp}"/>
-      <GetCurrentLocation current_location="{current_location}"/>
       <SubArmors topic_name="/detector/armors"
                  armors="{armors}"/>
       <SubRobotStatus topic_name="robot_status"
@@ -35,9 +34,12 @@
             </Sequence>
             <WhileDoElse>
               <IsAttaked message="{robot_status}"/>
-              <MoveAround expected_nearby_goal_count="3"
-                          expected_dis="0.3"
-                          message="{current_location}"/>
+              <AsyncSequence>
+                <GetCurrentLocation current_location="{current_location}"/>
+                <MoveAround expected_nearby_goal_count="3"
+                            expected_dis="0.3"
+                            message="{current_location}"/>
+              </AsyncSequence>
               <Fallback name="Whether interrupt navigation">
                 <IsStatusOK message="{robot_status}"
                             hp_threshold="250"
@@ -53,9 +55,12 @@
                           heat_threshold="350"/>
               <WhileDoElse name="Attack">
                 <IsAttaked message="{robot_status}"/>
-                <MoveAround expected_nearby_goal_count="3"
-                            expected_dis="0.3"
-                            message="{current_location}"/>
+                <AsyncSequence>
+                  <GetCurrentLocation current_location="{current_location}"/>
+                  <MoveAround expected_nearby_goal_count="3"
+                              expected_dis="0.3"
+                              message="{current_location}"/>
+                </AsyncSequence>
                 <WhileDoElse name="Attack">
                   <IsFriendOK message="{robot_hp}"
                               friend_color="red"/>
