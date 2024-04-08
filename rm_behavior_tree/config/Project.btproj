@@ -2,6 +2,7 @@
 <root BTCPP_format="4" project_name="Project">
     <include path="attack_left.xml"/>
     <include path="attack_right.xml"/>
+    <include path="retreat_attack_left.xml"/>
     <!-- Description of Node Models (used by Groot) -->
     <TreeNodesModel>
         <Action ID="GetCurrentLocation" editable="true">

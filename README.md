@@ -61,9 +61,24 @@
 
     ```sh
     ros2 launch rm_behavior_tree rm_behavior_tree.launch.py \
-    style:=full \
+    style:=retreat_attack_left \
     use_sim_time:=True
     ```
+
+## 当前的行为树预设
+
+- attack_left
+
+    自身状态良好时，向敌方左侧进攻；若队友平均血量少于敌方平均血量，回退到中心增益点；血量低时，回退补给区；撤退过程中若被攻击，再次根据状态判断是否打断撤退任务；被攻击时，可原地走位；
+
+- attack_right
+
+    同上，但向右侧进攻。
+
+- retreat_attack_left
+
+    继承，自身状态良好时，向左侧进攻...；  
+    添加特性：比赛最后1:30，固定回退到己方基地前侧墙边。
 
 ## 使用 Groot 可视化行为树
 
