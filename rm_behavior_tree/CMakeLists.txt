@@ -45,10 +45,10 @@ ament_auto_add_library(rate_controller SHARED
 add_target_dependencies(rate_controller)
 
 # Conditions
-ament_auto_add_library(is_game_start SHARED 
-    plugins/condition/is_game_start.cpp
+ament_auto_add_library(is_game_time SHARED 
+    plugins/condition/is_game_time.cpp
 )
-add_target_dependencies(is_game_start)
+add_target_dependencies(is_game_time)
 
 ament_auto_add_library(is_status_ok SHARED 
     plugins/condition/is_status_ok.cpp

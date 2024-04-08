@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="4" project_name="Project">
     <include path="attack_left.xml"/>
+    <include path="attack_right.xml"/>
     <!-- Description of Node Models (used by Groot) -->
     <TreeNodesModel>
         <Action ID="GetCurrentLocation" editable="true">
@@ -16,8 +17,11 @@
             <input_port name="message" default="{robot_hp}"/>
             <input_port name="friend_color" default="red"/>
         </Action>
-        <Action ID="IsGameStart" editable="true">
+        <Action ID="IsGameTime" editable="true">
             <input_port name="message" default="{game_status}"/>
+            <input_port name="game_progress" default="4"/>
+            <input_port name="lower_remain_time" default="0"/>
+            <input_port name="higher_remain_time" default="300"/>
         </Action>
         <Action ID="IsStatusOK" editable="true">
             <input_port name="message" default="{robot_status}"/>

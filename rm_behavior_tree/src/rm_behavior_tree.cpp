@@ -43,7 +43,7 @@ int main(int argc, char ** argv)
 
   const std::vector<std::string> bt_plugin_libs = {
     "rate_controller",
-    "is_game_start",
+    "is_game_time",
     "is_status_ok",
     "is_detect_enemy",
     "is_attacked",
