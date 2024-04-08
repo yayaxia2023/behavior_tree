@@ -111,4 +111,8 @@ ament_auto_add_library(robot_control SHARED
 )
 add_target_dependencies(robot_control)
 
-ament_auto_package()
+ament_auto_package(
+  INSTALL_TO_SHARE
+  launch
+  config
+)

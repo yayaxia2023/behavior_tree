@@ -32,20 +32,20 @@
 
 1. 安装依赖
 
-    ```zsh
+    ```sh
     sudo apt install ros-humble-behaviortree-cpp
     ```
 
 2. 克隆仓库
 
-    ```zsh
+    ```sh
     git clone https://gitee.com/SMBU-POLARBEAR/rm_behavior_tree.git
     cd rm_behavior_tree
     ```
 
 3. 编译
 
-    ```zsh
+    ```sh
     colcon build --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
     ```
 
@@ -53,14 +53,16 @@
 
 1. 开启[虚拟裁判系统话题发布](./rm_decision_interfaces/publish_script.sh)
 
-    ```zsh
+    ```sh
     ./rm_decision_ws/rm_decision_interfaces/publish_script.sh
     ```
 
 2. 启动行为树
 
-    ```zsh
-    ros2 run rm_behavior_tree rm_behavior_tree
+    ```sh
+    ros2 launch rm_behavior_tree rm_behavior_tree.launch.py \
+    style:=full \
+    use_sim_time:=True
     ```
 
 ## 使用 Groot 可视化行为树
@@ -69,14 +71,14 @@
 
 2. 安装 Groot
 
-    ```zsh
+    ```sh
     chmod +x Groot2-*-linux-installer.run
     ./Groot2-*-linux-installer.run
     ```
 
 3. 运行 Groot
 
-    ```zsh
+    ```sh
     cd ~/Groot2/bin
     ./groot2
     ```

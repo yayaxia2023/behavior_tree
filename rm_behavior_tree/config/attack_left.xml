@@ -56,8 +56,8 @@
                   <IsFriendOK message="{robot_hp}"
                               friend_color="red"/>
                   <RateController hz="1">
-                    <SendGoal name="Attack"
-                              goal_pose="5.3;-1.35;0; 0;0;0;1"
+                    <SendGoal name="Attack_Left"
+                              goal_pose="5.1;1.9;0; 0;0;0;1"
                               action_name="navigate_to_pose"/>
                   </RateController>
                   <RateController hz="1">

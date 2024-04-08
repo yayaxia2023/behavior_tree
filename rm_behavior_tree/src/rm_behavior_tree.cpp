@@ -1,9 +1,5 @@
 #include "rm_behavior_tree/rm_behavior_tree.h"
 
-#include <iostream>
-#include <memory>
-#include <string>
-
 #include "behaviortree_cpp/bt_factory.h"
 #include "behaviortree_cpp/json_export.h"
 #include "behaviortree_cpp/loggers/groot2_publisher.h"
@@ -13,10 +9,18 @@
 
 int main(int argc, char ** argv)
 {
-  std::cout << "Start RM_Behavior_Tree" << '\n';
-
   rclcpp::init(argc, argv);
   BT::BehaviorTreeFactory factory;
+
+  std::string bt_xml_path;
+  auto node = std::make_shared<rclcpp::Node>("rm_behavior_tree");
+  node->declare_parameter<std::string>(
+    "style", "./rm_decision_ws/rm_behavior_tree/rm_behavior_tree.xml");
+  node->get_parameter_or<std::string>(
+    "style", bt_xml_path, "./rm_decision_ws/rm_behavior_tree/config/attack_left.xml");
+
+  std::cout << "Start RM_Behavior_Tree" << '\n';
+  RCLCPP_INFO(node->get_logger(), "Load bt_xml: \e[1;42m %s \e[0m", bt_xml_path.c_str());
 
   BT::RosNodeParams params_update_msg;
   params_update_msg.nh = std::make_shared<rclcpp::Node>("update_msg");
@@ -64,8 +68,7 @@ int main(int argc, char ** argv)
   // Allow Groot2 to visualize custom type
   BT::RegisterJsonDefinition<geometry_msgs::msg::PoseStamped>(PoseStampedToJson);
 
-  const std::string tree_path = "./rm_decision_ws/rm_behavior_tree/rm_behavior_tree.xml";
-  auto tree = factory.createTreeFromFile(tree_path);
+  auto tree = factory.createTreeFromFile(bt_xml_path);
 
   // Connect the Groot2Publisher. This will allow Groot2 to get the tree and poll status updates.
   const unsigned port = 1667;
