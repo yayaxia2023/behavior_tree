@@ -11,12 +11,12 @@ ros2 topic pub -r 10 /robot_status rm_decision_interfaces/msg/RobotStatus "{
 }" &
 
 ros2 topic pub -r 1 /game_status rm_decision_interfaces/msg/GameStatus "{
-    game_progress: 4,
-    stage_remain_time: 30,
+    game_progress: 3,
+    stage_remain_time: 220,
 }" &
 
 ros2 topic pub -r 3 /robot_hp rm_decision_interfaces/msg/AllRobotHP "{
-    red_1_robot_hp: 200,
+    red_1_robot_hp: 0,
     red_2_robot_hp: 90,
     red_3_robot_hp: 100,
     red_4_robot_hp: 40,
