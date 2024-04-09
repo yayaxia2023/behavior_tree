@@ -53,7 +53,7 @@
               <IsStatusOK message="{robot_status}"
                           hp_threshold="400"
                           heat_threshold="350"/>
-              <WhileDoElse name="Attack">
+              <WhileDoElse>
                 <IsAttaked message="{robot_status}"/>
                 <AsyncSequence>
                   <GetCurrentLocation current_location="{current_location}"/>
@@ -61,7 +61,7 @@
                               expected_dis="0.3"
                               message="{current_location}"/>
                 </AsyncSequence>
-                <WhileDoElse name="BaseOrOut">
+                <WhileDoElse>
                   <IsGameTime name="0:00~1:30"
                               message="{game_status}"
                               game_progress="4"
@@ -70,19 +70,31 @@
                   <SendGoal name="BaseFrontWall"
                             goal_pose="0.8;-2;0; 0;0;0;1"
                             action_name="navigate_to_pose"/>
-                  <WhileDoElse name="GoOutAttack">
-                    <IsFriendOK message="{robot_hp}"
-                                friend_color="red"/>
+                  <WhileDoElse>
+                    <IsGameTime name="3:20-4:05"
+                                message="{game_status}"
+                                game_progress="4"
+                                lower_remain_time="200"
+                                higher_remain_time="245"/>
                     <RateController hz="1">
-                      <SendGoal name="Attack_Left"
-                                goal_pose="5.1;1.9;0; 0;0;0;1"
+                      <SendGoal name="OccupyCenter"
+                                goal_pose="3.0;0.4;0; 0;0;0;1"
                                 action_name="navigate_to_pose"/>
                     </RateController>
-                    <RateController hz="1">
-                      <SendGoal name="Center"
-                                goal_pose="3;1;0; 0;0;0;1"
-                                action_name="navigate_to_pose"/>
-                    </RateController>
+                    <WhileDoElse name="GoOutAttack">
+                      <IsFriendOK message="{robot_hp}"
+                                  friend_color="red"/>
+                      <RateController hz="1">
+                        <SendGoal name="Attack_Left"
+                                  goal_pose="5.1;1.9;0; 0;0;0;1"
+                                  action_name="navigate_to_pose"/>
+                      </RateController>
+                      <RateController hz="1">
+                        <SendGoal name="Center"
+                                  goal_pose="3;1;0; 0;0;0;1"
+                                  action_name="navigate_to_pose"/>
+                      </RateController>
+                    </WhileDoElse>
                   </WhileDoElse>
                 </WhileDoElse>
               </WhileDoElse>
