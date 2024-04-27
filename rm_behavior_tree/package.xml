@@ -4,7 +4,7 @@
   <name>rm_behavior_tree</name>
   <version>0.0.0</version>
   <description>Decision tree implemented based on BehaviorTree.CPP, used for RM Sentry's autonomous decision-making.</description>
-  <maintainer email="1120220476@smbu.edu.cn">LihanChen</maintainer>
+  <maintainer email="lihanchen2004@163.com">LihanChen</maintainer>
   <license>MIT</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>

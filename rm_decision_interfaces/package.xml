@@ -4,7 +4,7 @@
   <name>rm_decision_interfaces</name>
   <version>0.0.0</version>
   <description>Robomaster 2024 referee system information to ROS CustomMsg</description>
-  <maintainer email="1120220476@smbu.edu.cn">Lihan Chen</maintainer>
+  <maintainer email="lihanchen2004@163.com">Lihan Chen</maintainer>
   <license>MIT</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
