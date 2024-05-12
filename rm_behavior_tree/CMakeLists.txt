@@ -65,6 +65,11 @@ ament_auto_add_library(is_friend_ok SHARED
 )
 add_target_dependencies(is_friend_ok)
 
+ament_auto_add_library(is_outpost_ok SHARED 
+    plugins/condition/is_outpost_ok.cpp
+)
+add_target_dependencies(is_outpost_ok)
+
 ament_auto_add_library(is_detect_enemy SHARED 
     plugins/condition/is_detect_enemy.cpp
 )

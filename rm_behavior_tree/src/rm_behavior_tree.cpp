@@ -48,6 +48,7 @@ int main(int argc, char ** argv)
     "is_detect_enemy",
     "is_attacked",
     "is_friend_ok",
+    "is_outpost_ok",
     "get_current_location",
     "move_around",
   };
