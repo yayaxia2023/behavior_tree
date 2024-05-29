@@ -1,11 +1,9 @@
 #include "rm_behavior_tree/rm_behavior_tree.h"
 
 #include "behaviortree_cpp/bt_factory.h"
-#include "behaviortree_cpp/json_export.h"
 #include "behaviortree_cpp/loggers/groot2_publisher.h"
 #include "behaviortree_cpp/utils/shared_library.h"
 #include "behaviortree_ros2/plugins.hpp"
-#include "rm_behavior_tree/plugins/action/send_goal.hpp"
 
 int main(int argc, char ** argv)
 {
@@ -65,9 +63,6 @@ int main(int argc, char ** argv)
   RegisterRosNode(factory, BT::SharedLibrary::getOSName("send_goal"), params_send_goal);
 
   RegisterRosNode(factory, BT::SharedLibrary::getOSName("robot_control"), params_robot_control);
-
-  // Allow Groot2 to visualize custom type
-  BT::RegisterJsonDefinition<geometry_msgs::msg::PoseStamped>(PoseStampedToJson);
 
   auto tree = factory.createTreeFromFile(bt_xml_path);
 
