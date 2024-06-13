@@ -2,11 +2,11 @@
 #define RM_BEHAVIOR_TREE__PLUGINS__ACTION__SUB_DECISION_NUM_HPP_
 
 #include "behaviortree_ros2/bt_topic_sub_node.hpp"
-#include "rm_decision_interfaces/msg/cv_decision.hpp"
+#include "rm_decision_interfaces/msg/decision_num.hpp"
 
 namespace rm_behavior_tree
 {
-class SubDecisionNumAction : public BT::RosTopicSubNode<rm_decision_interfaces::msg::CvDecision>
+class SubDecisionNumAction : public BT::RosTopicSubNode<rm_decision_interfaces::msg::DecisionNum>
 {
 public:
   SubDecisionNumAction(
@@ -16,11 +16,11 @@ public:
   {
     return {
       BT::InputPort<std::string>("topic_name"),
-      BT::OutputPort<rm_decision_interfaces::msg::CvDecision>("decision_num")};
+      BT::OutputPort<rm_decision_interfaces::msg::DecisionNum>("decision_num")};
   }
 
   BT::NodeStatus onTick(
-    const std::shared_ptr<rm_decision_interfaces::msg::CvDecision> & last_msg) override;
+    const std::shared_ptr<rm_decision_interfaces::msg::DecisionNum> & last_msg) override;
 };
 }  // namespace rm_behavior_tree
 
