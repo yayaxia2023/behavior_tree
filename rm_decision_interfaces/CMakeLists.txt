@@ -20,6 +20,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/GameStatus.msg"
   "msg/RFID.msg"
   "msg/RobotControl.msg"
+  "msg/DecisionNum.msg"
 
   DEPENDENCIES
     std_msgs

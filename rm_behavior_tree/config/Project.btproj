@@ -52,6 +52,9 @@
             <input_port name="goal_pose" default="0;0;0; 0;0;0;1"/>
             <input_port name="action_name" default="navigate_to_pose"/>
         </Action>
+        <Action ID="PrintMessage" editable="true">
+            <input_port name="message_to_print" default="Hello,World!"/>
+        </Action>
         <Action ID="SubAllRobotHP" editable="true">
             <input_port name="topic_name" default="robot_hp"/>
             <output_port name="robot_hp" default="{robot_hp}"/>
@@ -68,5 +71,12 @@
             <input_port name="topic_name" default="robot_status"/>
             <output_port name="robot_status" default="{robot_status}"/>
         </Action>
+        <Action ID="SubDecisionNum" editable="true">
+            <input_port name="topic_name" default="decision_num"/>
+            <output_port name="decision_num" default="{decision_num}"/>
+        </Action>
+        <Control ID="DecisionSwitch" editable="true">
+            <input_port name="message" default="{decision_num}"/>
+        </Control>
     </TreeNodesModel>
 </root>

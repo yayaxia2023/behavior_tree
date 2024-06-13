@@ -37,6 +37,11 @@ endfunction()
 ament_auto_add_executable(rm_behavior_tree 
     src/rm_behavior_tree.cpp
 )
+# Controllers
+ament_auto_add_library(decision_switch SHARED
+    plugins/control/decision_switch.cpp
+)
+add_target_dependencies(decision_switch)
 
 # Decorators
 ament_auto_add_library(rate_controller SHARED 
@@ -101,6 +106,11 @@ ament_auto_add_library(sub_armors SHARED
 )
 add_target_dependencies(sub_armors)
 
+ament_auto_add_library(sub_decision_num SHARED
+    plugins/action/sub_decision_num.cpp
+)
+add_target_dependencies(sub_decision_num)
+
 ament_auto_add_library(get_current_location SHARED 
     plugins/action/get_current_location.cpp
 )
@@ -115,6 +125,11 @@ ament_auto_add_library(robot_control SHARED
     plugins/action/robot_control.cpp
 )
 add_target_dependencies(robot_control)
+
+ament_auto_add_library(print_message SHARED 
+    plugins/action/print_message.cpp
+)
+add_target_dependencies(print_message)
 
 ament_auto_package(
   INSTALL_TO_SHARE

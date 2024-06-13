@@ -2,6 +2,10 @@
 
 source install/setup.sh
 
+ros2 topic pub -r 10 /decision_num rm_decision_interfaces/msg/DecisionNum "{
+    decision_num: 1,
+}" &
+
 ros2 topic pub -r 10 /robot_status rm_decision_interfaces/msg/RobotStatus "{
     robot_id: 7,
     current_hp: 600,
