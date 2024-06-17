@@ -2,6 +2,7 @@
 #define RM_BEHAVIOR_TREE__PLUGINS__ACTION__PRINT_MESSAGE_HPP_
 
 #include "behaviortree_cpp/action_node.h"
+#include "rclcpp/rclcpp.hpp"
 #include <iostream>
 
 namespace rm_behavior_tree
