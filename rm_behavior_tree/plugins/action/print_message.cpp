@@ -18,6 +18,7 @@ BT::NodeStatus PrintMessageAction::tick()
         return BT::NodeStatus::FAILURE;
     }
     std::cout << message << std::endl;
+    RCLCPP_INFO(rclcpp::get_logger("print_message"), "%s", message.c_str());
     return BT::NodeStatus::SUCCESS;
 }
 }  // namespace rm_behavior_tree
