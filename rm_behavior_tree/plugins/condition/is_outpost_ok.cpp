@@ -14,15 +14,15 @@ BT::NodeStatus IsOutpostOKAction::checkRobotStatus()
 {
   int hp_threshold = 0;
   int outpost_hp = 0;
-  auto all_robot_hp_msg = getInput<rm_decision_interfaces::msg::AllRobotHP>("all_robot_hp");
-  auto robot_status_msg = getInput<rm_decision_interfaces::msg::RobotStatus>("robot_status");
+  auto all_robot_hp_msg = getInput<roborts_msgs::msg::GameRobotHP>("all_robot_hp");
+  auto robot_status_msg = getInput<roborts_msgs::msg::RobotStatus>("robot_status");
   getInput("hp_threshold", hp_threshold);
 
   if (!all_robot_hp_msg || !robot_status_msg) {
     return BT::NodeStatus::FAILURE;
   }
 
-  outpost_hp = (robot_status_msg->team_color == TeamColor::RED) ? all_robot_hp_msg->red_outpost_hp
+  outpost_hp = (robot_status_msg->id < 100) ? all_robot_hp_msg->red_outpost_hp
                                                                 : all_robot_hp_msg->blue_outpost_hp;
   std::cout << "red_outpost_hp:" << outpost_hp << '\n';
 

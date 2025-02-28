@@ -2,7 +2,7 @@
 #define RM_BEHAVIOR_TREE__PLUGINS__ACTION__IS_FRIEND_OK_HPP_
 
 #include "behaviortree_cpp/condition_node.h"
-#include "rm_decision_interfaces/msg/all_robot_hp.hpp"
+#include "roborts_msgs/msg/game_robot_hp.hpp"
 
 namespace rm_behavior_tree
 {
@@ -23,7 +23,7 @@ public:
   static BT::PortsList providedPorts()
   {
     return {
-      BT::InputPort<rm_decision_interfaces::msg::AllRobotHP>("message"),
+      BT::InputPort<roborts_msgs::msg::GameRobotHP>("message"),
       BT::InputPort<std::string>("friend_color")};
   }
 };

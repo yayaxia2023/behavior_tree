@@ -5,18 +5,18 @@ namespace rm_behavior_tree
 
 SubRobotStatusAction::SubRobotStatusAction(
   const std::string & name, const BT::NodeConfig & conf, const BT::RosNodeParams & params)
-: BT::RosTopicSubNode<rm_decision_interfaces::msg::RobotStatus>(name, conf, params)
+: BT::RosTopicSubNode<roborts_msgs::msg::RobotStatus>(name, conf, params)
 {
 }
 
 BT::NodeStatus SubRobotStatusAction::onTick(
-  const std::shared_ptr<rm_decision_interfaces::msg::RobotStatus> & last_msg)
+  const std::shared_ptr<roborts_msgs::msg::RobotStatus> & last_msg)
 {
   if (last_msg)  // empty if no new message received, since the last tick
   {
-    RCLCPP_DEBUG(
-      logger(), "[%s] new message, shooter_heat: %s", name().c_str(),
-      std::to_string(last_msg->shooter_heat).c_str());
+    // RCLCPP_DEBUG(
+    //   logger(), "[%s] new message, shooter_heat: %s", name().c_str(),
+    //   std::to_string(last_msg->shooter_heat).c_str());
     setOutput("robot_status", *last_msg);
   }
   return BT::NodeStatus::SUCCESS;

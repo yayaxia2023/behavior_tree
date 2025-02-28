@@ -11,7 +11,7 @@ IsGameTimeCondition::IsGameTimeCondition(const std::string & name, const BT::Nod
 BT::NodeStatus IsGameTimeCondition::checkGameStart()
 {
   int game_progress, lower_remain_time, higher_remain_time;
-  auto msg = getInput<rm_decision_interfaces::msg::GameStatus>("message");
+  auto msg = getInput<roborts_msgs::msg::GameStatus>("message");
   getInput("game_progress", game_progress);
   getInput("lower_remain_time", lower_remain_time);
   getInput("higher_remain_time", higher_remain_time);
@@ -21,8 +21,8 @@ BT::NodeStatus IsGameTimeCondition::checkGameStart()
   }
 
   if (
-    msg->game_progress == game_progress && msg->stage_remain_time >= lower_remain_time &&
-    msg->stage_remain_time <= higher_remain_time) {
+    msg->game_status == game_progress && msg->remaining_time >= lower_remain_time &&
+    msg->remaining_time <= higher_remain_time) {
     return BT::NodeStatus::SUCCESS;
   } else {
     return BT::NodeStatus::FAILURE;

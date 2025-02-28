@@ -12,7 +12,7 @@ BT::NodeStatus IsFriendOKAction::checkFriendStatus()
 {
   int friend_average_hp = 0;
   int enemy_average_hp = 0;
-  auto msg = getInput<rm_decision_interfaces::msg::AllRobotHP>("message");
+  auto msg = getInput<roborts_msgs::msg::GameRobotHP>("message");
   auto friend_color = getInput<std::string>("friend_color");
 
   if (!msg) {

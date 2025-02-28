@@ -5,12 +5,12 @@ namespace rm_behavior_tree
 
 SubAllRobotHPAction::SubAllRobotHPAction(
   const std::string & name, const BT::NodeConfig & conf, const BT::RosNodeParams & params)
-: BT::RosTopicSubNode<rm_decision_interfaces::msg::AllRobotHP>(name, conf, params)
+: BT::RosTopicSubNode<roborts_msgs::msg::GameRobotHP>(name, conf, params)
 {
 }
 
 BT::NodeStatus SubAllRobotHPAction::onTick(
-  const std::shared_ptr<rm_decision_interfaces::msg::AllRobotHP> & last_msg)
+  const std::shared_ptr<roborts_msgs::msg::GameRobotHP> & last_msg)
 {
   if (last_msg)  // empty if no new message received, since the last tick
   {

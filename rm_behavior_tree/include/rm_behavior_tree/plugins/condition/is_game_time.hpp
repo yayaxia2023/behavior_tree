@@ -2,7 +2,7 @@
 #define RM_BEHAVIOR_TREE__PLUGINS__ACTION__IS_GAME_TIME_HPP_
 
 #include "behaviortree_cpp/condition_node.h"
-#include "rm_decision_interfaces/msg/game_status.hpp"
+#include "roborts_msgs/msg/game_status.hpp"
 
 namespace rm_behavior_tree
 {
@@ -26,7 +26,7 @@ public:
   static BT::PortsList providedPorts()
   {
     return {
-      BT::InputPort<rm_decision_interfaces::msg::GameStatus>("message"),
+      BT::InputPort<roborts_msgs::msg::GameStatus>("message"),
       BT::InputPort<int>("game_progress"), BT::InputPort<int>("lower_remain_time"),
       BT::InputPort<int>("higher_remain_time")};
   }

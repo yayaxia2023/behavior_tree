@@ -5,12 +5,12 @@ namespace rm_behavior_tree
 
 SubArmorsAction::SubArmorsAction(
   const std::string & name, const BT::NodeConfig & conf, const BT::RosNodeParams & params)
-: BT::RosTopicSubNode<auto_aim_interfaces::msg::Armors>(name, conf, params)
+: BT::RosTopicSubNode<rm_interfaces::msg::Armors>(name, conf, params)
 {
 }
 
 BT::NodeStatus SubArmorsAction::onTick(
-  const std::shared_ptr<auto_aim_interfaces::msg::Armors> & last_msg)
+  const std::shared_ptr<rm_interfaces::msg::Armors> & last_msg)
 {
   if (last_msg) {
     setOutput("armors", *last_msg);

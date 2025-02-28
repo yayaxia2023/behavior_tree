@@ -13,6 +13,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 #######################
 
 find_package(ament_cmake_auto REQUIRED)
+find_package(roborts_msgs REQUIRED)
 ament_auto_find_build_dependencies()
 
 ###########
@@ -23,8 +24,11 @@ set(PACKAGE_INCLUDE_DEPENDS
     rm_decision_interfaces
     rclcpp
     std_msgs
+    nav2_msgs
     behaviortree_cpp
     behaviortree_ros2
+    roborts_msgs
+    rm_interfaces
 )
 
 # 定义宏函数 add_target_dependencies

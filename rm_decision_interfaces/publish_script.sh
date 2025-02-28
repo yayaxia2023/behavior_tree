@@ -38,7 +38,7 @@ ros2 topic pub -r 3 /robot_hp rm_decision_interfaces/msg/AllRobotHP "{
     blue_base_hp: 1000
 }" &
 
-ros2 topic pub -r 5 /detector/armors auto_aim_interfaces/msg/Armors "{
+ros2 topic pub -r 5 /detector/armors rm_interfaces/msg/Armors "{
   header: {
     stamp: {sec: 0, nanosec: 0},
     frame_id: 'my_frame'

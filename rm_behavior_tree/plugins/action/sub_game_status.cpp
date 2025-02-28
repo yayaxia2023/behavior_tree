@@ -5,18 +5,18 @@ namespace rm_behavior_tree
 
 SubGameStatusAction::SubGameStatusAction(
   const std::string & name, const BT::NodeConfig & conf, const BT::RosNodeParams & params)
-: BT::RosTopicSubNode<rm_decision_interfaces::msg::GameStatus>(name, conf, params)
+: BT::RosTopicSubNode<roborts_msgs::msg::GameStatus>(name, conf, params)
 {
 }
 
 BT::NodeStatus SubGameStatusAction::onTick(
-  const std::shared_ptr<rm_decision_interfaces::msg::GameStatus> & last_msg)
+  const std::shared_ptr<roborts_msgs::msg::GameStatus> & last_msg)
 {
   if (last_msg)  // empty if no new message received, since the last tick
   {
     RCLCPP_DEBUG(
       logger(), "[%s] new message, game_progress: %s", name().c_str(),
-      std::to_string(last_msg->game_progress).c_str());
+      std::to_string(last_msg->game_status).c_str());
     setOutput("game_status", *last_msg);
   }
   return BT::NodeStatus::SUCCESS;

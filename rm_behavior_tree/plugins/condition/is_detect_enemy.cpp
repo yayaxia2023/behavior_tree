@@ -10,7 +10,7 @@ IsDetectEnemyAction::IsDetectEnemyAction(const std::string & name, const BT::Nod
 
 BT::NodeStatus IsDetectEnemyAction::detectEnemyStatus()
 {
-  auto msg = getInput<auto_aim_interfaces::msg::Armors>("message");
+  auto msg = getInput<rm_interfaces::msg::Armors>("message");
 
   if (!msg) {
     std::cerr << "Missing required input [message]" << '\n';

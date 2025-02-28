@@ -1,12 +1,12 @@
 #ifndef RM_BEHAVIOR_TREE__PLUGINS__ACTION__SUB_ARMORS_HPP_
 #define RM_BEHAVIOR_TREE__PLUGINS__ACTION__SUB_ARMORS_HPP_
 
-#include "auto_aim_interfaces/msg/armors.hpp"
+#include "rm_interfaces/msg/armors.hpp"
 #include "behaviortree_ros2/bt_topic_sub_node.hpp"
 
 namespace rm_behavior_tree
 {
-class SubArmorsAction : public BT::RosTopicSubNode<auto_aim_interfaces::msg::Armors>
+class SubArmorsAction : public BT::RosTopicSubNode<rm_interfaces::msg::Armors>
 {
 public:
   SubArmorsAction(
@@ -16,11 +16,11 @@ public:
   {
     return {
       BT::InputPort<std::string>("topic_name"),
-      BT::OutputPort<auto_aim_interfaces::msg::Armors>("armors")};
+      BT::OutputPort<rm_interfaces::msg::Armors>("armors")};
   }
 
   BT::NodeStatus onTick(
-    const std::shared_ptr<auto_aim_interfaces::msg::Armors> & last_msg) override;
+    const std::shared_ptr<rm_interfaces::msg::Armors> & last_msg) override;
 };
 }  // namespace rm_behavior_tree
 
