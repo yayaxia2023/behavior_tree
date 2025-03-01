@@ -27,7 +27,8 @@ public:
   static BT::PortsList providedPorts()
   {
     return {
-      BT::InputPort<roborts_msgs::msg::RobotStatus>("message"),
+      BT::InputPort<roborts_msgs::msg::RobotStatus>("message_1"),
+      BT::InputPort<roborts_msgs::msg::RobotHeat>("message_2"),
       BT::InputPort<int>("hp_threshold"), BT::InputPort<int>("heat_threshold")};
   }
 };

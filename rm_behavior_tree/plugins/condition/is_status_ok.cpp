@@ -11,8 +11,8 @@ IsStatusOKAction::IsStatusOKAction(const std::string & name, const BT::NodeConfi
 BT::NodeStatus IsStatusOKAction::checkRobotStatus()
 {
   int hp_threshold, heat_threshold;
-  auto msg = getInput<roborts_msgs::msg::RobotStatus>("message");
-  auto msg_1 = getInput<roborts_msgs::msg::RobotHeat>("message");
+  auto msg = getInput<roborts_msgs::msg::RobotStatus>("message_1");
+  auto msg_1 = getInput<roborts_msgs::msg::RobotHeat>("message_2");
   getInput("hp_threshold", hp_threshold);
   getInput("heat_threshold", heat_threshold);
 
