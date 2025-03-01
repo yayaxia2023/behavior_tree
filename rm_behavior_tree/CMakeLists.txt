@@ -133,6 +133,11 @@ add_target_dependencies(robot_control)
 ament_auto_add_library(print_message SHARED 
     plugins/action/print_message.cpp
 )
+
+ament_auto_add_library(robot_heat SHARED 
+    plugins/action/robot_heat.cpp
+)
+
 add_target_dependencies(print_message)
 
 ament_auto_package(
