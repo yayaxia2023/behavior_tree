@@ -16,6 +16,7 @@ public:
   {
     return {
       BT::InputPort<std::string>("topic_name"),
+      BT::InputPort<std::string>("qos_profile"),
       BT::OutputPort<rm_interfaces::msg::Armors>("armors")};
   }
 

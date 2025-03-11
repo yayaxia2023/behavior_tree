@@ -70,7 +70,24 @@ class RosTopicSubNode : public BT::ConditionNode
       };
       subscriber =  node->create_subscription<TopicT>(topic_name, 1, callback, option);
     }
+    void init(std::shared_ptr<rclcpp::Node> node, const std::string& topic_name, const rclcpp::QoS & qos)
+    {
+      // create a callback group for this particular instance
+      callback_group = 
+        node->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive, false);
+      callback_group_executor.add_callback_group(
+        callback_group, node->get_node_base_interface());
 
+      rclcpp::SubscriptionOptions option;
+      option.callback_group = callback_group;
+      auto qos_set = qos;
+       // The callback will broadcast to all the instances of RosTopicSubNode<T>
+      auto callback = [this](const std::shared_ptr<TopicT> msg) 
+      {
+        broadcaster(msg);
+      };
+      subscriber =  node->create_subscription<TopicT>(topic_name, qos_set, callback, option);
+    }
     std::shared_ptr<Subscriber> subscriber;
     rclcpp::CallbackGroup::SharedPtr callback_group;
     rclcpp::executors::SingleThreadedExecutor callback_group_executor;
@@ -176,6 +193,7 @@ class RosTopicSubNode : public BT::ConditionNode
 private:
 
   bool createSubscriber(const std::string& topic_name);
+  bool createSubscriber(const std::string& topic_name, const rclcpp::QoS & qos_profile);
 };
 
 //----------------------------------------------------------------
@@ -190,6 +208,28 @@ template<class T> inline
       node_(params.nh)
 { 
   // check port remapping
+  rclcpp::QoS qos_profile(10); // 默认QoS，可按需修改
+  bool use_qos = false;
+  auto qosIt = config().input_ports.find("qos_profile");
+  if(qosIt != config().input_ports.end())
+  {
+    const std::string& qos_value = qosIt->second;
+    if(!qos_value.empty() && !isBlackboardPointer(qos_value))
+    {
+      if(qos_value == "best_effort"){
+        qos_profile.reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT);
+        use_qos = true;
+      }
+      else if(qos_value == "reliable"){
+        qos_profile.reliability(RMW_QOS_POLICY_RELIABILITY_RELIABLE);
+        use_qos = true;
+      }
+      else if(qos_value == "sensor"){
+        qos_profile = rclcpp::SensorDataQoS();
+        use_qos = true;
+      }
+    }
+  }
   auto portIt = config().input_ports.find("topic_name");
   if(portIt != config().input_ports.end())
   {
@@ -204,6 +244,13 @@ template<class T> inline
       else {
         createSubscriber(params.default_port_value);
       }
+    }
+    else if(!isBlackboardPointer(bb_topic_name) && use_qos)
+    {
+      // If the content of the port "topic_name" is not
+      // a pointer to the blackboard, but a static string, we can
+      // create the client in the constructor.
+      createSubscriber(bb_topic_name,qos_profile);
     }
     else if(!isBlackboardPointer(bb_topic_name))
     {
@@ -268,7 +315,46 @@ template<class T> inline
   topic_name_ = topic_name;
   return true;
 }
+template<class T> inline
+  bool RosTopicSubNode<T>::createSubscriber(const std::string& topic_name, const rclcpp::QoS & qos_profile)
+{
+  if(topic_name.empty())
+  {
+    throw RuntimeError("topic_name is empty");
+  }
+  if(sub_instance_)
+  {
+    throw RuntimeError("Can't call createSubscriber more than once");
+  }
 
+  // find SubscriberInstance in the registry
+  std::unique_lock lk(registryMutex());
+  subscriber_key_ = std::string(node_->get_fully_qualified_name()) + "/" + topic_name;
+
+  auto& registry = getRegistry();
+  auto it = registry.find(subscriber_key_);
+  if(it == registry.end())
+  {
+    it = registry.insert( {subscriber_key_, std::make_shared<SubscriberInstance>() }).first;
+    sub_instance_ = it->second;
+    sub_instance_->init(node_, topic_name,qos_profile);
+
+    RCLCPP_INFO(logger(), 
+      "Node [%s] created Subscriber to topic [%s]",
+      name().c_str(), topic_name.c_str() );
+  }
+  else {
+    sub_instance_ = it->second;
+  }
+
+
+  // add "this" as received of the broadcaster
+  signal_connection_ = sub_instance_->broadcaster.connect(
+    [this](const std::shared_ptr<T> msg) { last_msg_ = msg; } );
+
+  topic_name_ = topic_name;
+  return true;
+}
 
 template<class T> inline
   NodeStatus RosTopicSubNode<T>::tick()
