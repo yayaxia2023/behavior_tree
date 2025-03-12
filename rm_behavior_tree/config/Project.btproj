@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="4" project_name="Project">
-    <include path="attack_left.xml"/>
-    <include path="attack_right.xml"/>
-    <include path="protect_supply.xml"/>
-    <include path="retreat_attack_left.xml"/>
-    <include path="rmuc_01.xml"/>
+    <include path="../../../../../Groot2/test.xml"/>
     <!-- Description of Node Models (used by Groot) -->
     <TreeNodesModel>
         <Action ID="GetCurrentLocation" editable="true">
@@ -25,11 +21,6 @@
             <input_port name="game_progress" default="4"/>
             <input_port name="lower_remain_time" default="0"/>
             <input_port name="higher_remain_time" default="300"/>
-        </Action>
-        <Action ID="IsOutpostOK" editable="true">
-            <input_port name="robot_status" default="{robot_status}"/>
-            <input_port name="all_robot_hp" default="{robot_hp}"/>
-            <input_port name="hp_threshold" default="10"/>
         </Action>
         <Action ID="IsStatusOK" editable="true">
             <input_port name="message" default="{robot_status}"/>
@@ -52,9 +43,6 @@
             <input_port name="goal_pose" default="0;0;0; 0;0;0;1"/>
             <input_port name="action_name" default="navigate_to_pose"/>
         </Action>
-        <Action ID="PrintMessage" editable="true">
-            <input_port name="message_to_print" default="Hello,World!"/>
-        </Action>
         <Action ID="SubAllRobotHP" editable="true">
             <input_port name="topic_name" default="robot_hp"/>
             <output_port name="robot_hp" default="{robot_hp}"/>
@@ -71,12 +59,5 @@
             <input_port name="topic_name" default="robot_status"/>
             <output_port name="robot_status" default="{robot_status}"/>
         </Action>
-        <Action ID="SubDecisionNum" editable="true">
-            <input_port name="topic_name" default="decision_num"/>
-            <output_port name="decision_num" default="{decision_num}"/>
-        </Action>
-        <Control ID="DecisionSwitch" editable="true">
-            <input_port name="message" default="{decision_num}"/>
-        </Control>
     </TreeNodesModel>
 </root>

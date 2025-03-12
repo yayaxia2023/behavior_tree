@@ -13,6 +13,7 @@ BT::NodeStatus SubArmorsAction::onTick(
   const std::shared_ptr<rm_interfaces::msg::Armors> & last_msg)
 {
   if (last_msg) {
+    // std::cerr << "Missing required [message]" << '\n';
     setOutput("armors", *last_msg);
   }
   return BT::NodeStatus::SUCCESS;

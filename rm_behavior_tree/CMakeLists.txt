@@ -84,6 +84,11 @@ ament_auto_add_library(is_detect_enemy SHARED
 )
 add_target_dependencies(is_detect_enemy)
 
+ament_auto_add_library(is_target SHARED 
+    plugins/condition/is_target.cpp
+)
+add_target_dependencies(is_target)
+
 # Actions
 ament_auto_add_library(send_goal SHARED 
     plugins/action/send_goal.cpp
@@ -129,6 +134,12 @@ ament_auto_add_library(robot_control SHARED
     plugins/action/robot_control.cpp
 )
 add_target_dependencies(robot_control)
+
+ament_auto_add_library(sub_target SHARED 
+    plugins/action/sub_target.cpp
+)
+
+add_target_dependencies(sub_target)
 
 ament_auto_add_library(print_message SHARED 
     plugins/action/print_message.cpp

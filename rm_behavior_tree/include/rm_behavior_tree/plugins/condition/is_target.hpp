@@ -3,7 +3,7 @@
 
 #include <rm_interfaces/msg/detail/armors__struct.hpp>
 #include "behaviortree_cpp/condition_node.h"
-#include "rm_interfaces/msg/armors.hpp"
+#include "rm_interfaces/msg/target.hpp"
 
 namespace rm_behavior_tree
 {
@@ -12,10 +12,10 @@ namespace rm_behavior_tree
  * @brief condition节点，用于判断视野内是否存在有效敌人
  * @param[in] message 识别模块的检测结果序列
  */
-class IsDetectEnemyAction : public BT::SimpleConditionNode
+class IsTargetAction : public BT::SimpleConditionNode
 {
 public:
-  IsDetectEnemyAction(const std::string & name, const BT::NodeConfig & config);
+  IsTargetAction(const std::string & name, const BT::NodeConfig & config);
 
   // BT::NodeStatus checkGameStart(BT::TreeNode & self_node)
   BT::NodeStatus detectEnemyStatus();
@@ -23,7 +23,7 @@ public:
   static BT::PortsList providedPorts()
   {
     return {
-      BT::InputPort<rm_interfaces::msg::Armors>("message")};
+      BT::InputPort<rm_interfaces::msg::Target>("message")};
   }
 };
 }  // namespace rm_behavior_tree

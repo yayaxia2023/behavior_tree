@@ -3,25 +3,25 @@
       main_tree_to_execute="BehaviorTree">
   <BehaviorTree ID="BehaviorTree">
     <ReactiveSequence>
-      <SubArmors topic_name="/armor_detector/armors"
-                 topic_name="sensor"
-                 armors="{armors}"/>
+      <SubTarget topic_name="/armor_solver/target"
+                 qos_profile="sensor"
+                 target="{target}"/>
       <WhileDoElse name="Whether gimbal_scan/chassis_spin">
-        <IsDetectEnemy message="{armors}"/>
+        <IsTarget message="{target}"/>
         <RobotControl stop_gimbal_scan="True"
-                      chassis_spin_vel="0.5"/>
+                      chassis_spin_vel="1000"/>
         <RobotControl stop_gimbal_scan="False"
-                      chassis_spin_vel="0.5"/>
+                      chassis_spin_vel="1000"/>
       </WhileDoElse>
     </ReactiveSequence>
   </BehaviorTree>
 
   <!-- Description of Node Models (used by Groot) -->
   <TreeNodesModel>
-    <Action ID="IsDetectEnemy"
+    <Action ID="IsTarget"
             editable="true">
       <input_port name="message"
-                  default="{armors}"/>
+                  default="{target}"/>
     </Action>
     <Action ID="RobotControl"
             editable="true">
@@ -30,14 +30,14 @@
       <input_port name="chassis_spin_vel"
                   default="False"/>
     </Action>
-    <Action ID="SubArmors"
+    <Action ID="SubTarget"
             editable="true">
       <input_port name="topic_name"
-                  default="/detector/armors"/>
+                  default="/armor_solver/target"/>
       <input_port name="qos_profile"
                   default="sensor"/>
-      <output_port name="armors"
-                   default="{armors}"/>
+      <output_port name="target"
+                   default="{target}"/>
     </Action>
   </TreeNodesModel>
 
