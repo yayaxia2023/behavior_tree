@@ -135,6 +135,11 @@ ament_auto_add_library(robot_control SHARED
 )
 add_target_dependencies(robot_control)
 
+ament_auto_add_library(sub_robot_heat SHARED 
+    plugins/action/sub_robot_heat.cpp
+)
+add_target_dependencies(sub_robot_heat)
+
 ament_auto_add_library(sub_target SHARED 
     plugins/action/sub_target.cpp
 )
