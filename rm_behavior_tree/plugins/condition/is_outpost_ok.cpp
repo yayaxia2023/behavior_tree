@@ -22,7 +22,7 @@ BT::NodeStatus IsOutpostOKAction::checkRobotStatus()
     return BT::NodeStatus::FAILURE;
   }
 
-  outpost_hp = (robot_status_msg->id < 100) ? all_robot_hp_msg->red_outpost_hp
+  outpost_hp = (robot_status_msg->robot_id < 100) ? all_robot_hp_msg->red_outpost_hp
                                                                 : all_robot_hp_msg->blue_outpost_hp;
   std::cout << "red_outpost_hp:" << outpost_hp << '\n';
 

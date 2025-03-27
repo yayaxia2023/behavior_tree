@@ -39,6 +39,8 @@ int main(int argc, char ** argv)
     "sub_armors",
     "sub_decision_num",
     "sub_target",
+    "sub_robot_heat",
+    "sub_robot_hurt",
   };
 
   const std::vector<std::string> bt_plugin_libs = {
@@ -54,6 +56,8 @@ int main(int argc, char ** argv)
     "get_current_location",
     "move_around",
     "print_message",
+    "is_area",
+    "set_area",
   };
   // clang-format on
 
@@ -76,7 +80,7 @@ int main(int argc, char ** argv)
   BT::Groot2Publisher publisher(tree, port);
 
   while (rclcpp::ok()) {
-    tree.tickWhileRunning(std::chrono::milliseconds(10));
+    tree.tickWhileRunning(std::chrono::milliseconds(1));
   }
 
   rclcpp::shutdown();

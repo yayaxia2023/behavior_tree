@@ -2,7 +2,7 @@
 #define RM_BEHAVIOR_TREE__PLUGINS__ACTION__IS_ATTACKED_HPP_
 
 #include "behaviortree_cpp/condition_node.h"
-#include "roborts_msgs/msg/robot_status.hpp"
+#include "roborts_msgs/msg/robot_damage.hpp"
 
 namespace rm_behavior_tree
 {
@@ -21,7 +21,7 @@ public:
 
   static BT::PortsList providedPorts()
   {
-    return {BT::InputPort<roborts_msgs::msg::RobotStatus>("message")};
+    return {BT::InputPort<roborts_msgs::msg::RobotDamage>("message")};
   }
 };
 }  // namespace rm_behavior_tree

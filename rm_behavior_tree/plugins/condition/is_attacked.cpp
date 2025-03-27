@@ -10,14 +10,14 @@ IsAttakedAction::IsAttakedAction(const std::string & name, const BT::NodeConfig 
 
 BT::NodeStatus IsAttakedAction::checkRobotAttacked()
 {
-  auto msg = getInput<roborts_msgs::msg::RobotStatus>("message");
+  auto msg = getInput<roborts_msgs::msg::RobotDamage>("message");
 
   if (!msg) {
     // std::cout << "missing required input [game_status]" << '\n';
     return BT::NodeStatus::FAILURE;
   }
 
-  if (msg->shooter_enable) {
+  if (msg->damage_source) {
     // 机器人受到攻击
     return BT::NodeStatus::SUCCESS;
   }

@@ -146,12 +146,26 @@ ament_auto_add_library(sub_target SHARED
 
 add_target_dependencies(sub_target)
 
-ament_auto_add_library(print_message SHARED 
-    plugins/action/print_message.cpp
+ament_auto_add_library(sub_robot_hurt SHARED 
+    plugins/action/sub_robot_hurt.cpp
 )
 
-ament_auto_add_library(sub_robot_heat SHARED 
-    plugins/action/sub_robot_heat.cpp
+add_target_dependencies(sub_robot_hurt)
+
+ament_auto_add_library(set_area SHARED 
+    plugins/action/set_area.cpp
+)
+
+add_target_dependencies(set_area)
+
+ament_auto_add_library(is_area SHARED 
+    plugins/condition/is_area.cpp
+)
+
+add_target_dependencies(is_area)
+
+ament_auto_add_library(print_message SHARED 
+    plugins/action/print_message.cpp
 )
 
 add_target_dependencies(print_message)

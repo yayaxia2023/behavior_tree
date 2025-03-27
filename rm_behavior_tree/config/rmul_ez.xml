@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4"
+      main_tree_to_execute="BehaviorTree">
+  <BehaviorTree ID="BehaviorTree">
+    <ReactiveSequence>
+      <SubAllRobotHP topic_name="robot_hp"
+                     robot_hp="{robot_hp}"/>
+      <SubTarget topic_name="/armor_solver/target"
+                 qos_profile="sensor"
+                 target="{target}"/>
+      <SubRobotStatus topic_name="robot_status"
+                      robot_status="{robot_status}"/>
+      <SubGameStatus topic_name="game_status"
+                     game_status="{game_status}"/>
+      <SubRobotHeat topic_name="robot_heat"
+                    robot_heat="{robot_heat}"/>
+      <WhileDoElse>
+        <IsGameTime name="IsGameStart"
+                    message="{game_status}"
+                    game_progress="4"
+                    lower_remain_time="0"
+                    higher_remain_time="300"/>
+        <ReactiveSequence>
+          <WhileDoElse name="Whether gimbal_scan/chassis_spin">
+            <IsTarget message="{target}"/>
+            <RobotControl stop_gimbal_scan="True"
+                          chassis_spin_vel="0.5"/>
+            <RobotControl stop_gimbal_scan="False"
+                          chassis_spin_vel="0.5"/>
+          </WhileDoElse>
+          <RateController hz="2">
+            <SendGoal goal_pose="3;-2.5;0; 0;0;0;1"
+                      action_name="navigate_to_pose"/>
+          </RateController>
+        </ReactiveSequence>
+        <ReactiveSequence>
+          <RateController hz="1">
+            <SendGoal name="Home"
+                      goal_pose="0;0;0; 0;0;0;1"
+                      action_name="navigate_to_pose"/>
+          </RateController>
+          <RobotControl stop_gimbal_scan="True"
+                        chassis_spin_vel="0.0"/>
+        </ReactiveSequence>
+      </WhileDoElse>
+    </ReactiveSequence>
+  </BehaviorTree>
+
+  <!-- Description of Node Models (used by Groot) -->
+  <TreeNodesModel>
+    <Action ID="IsGameTime"
+            editable="true">
+      <input_port name="message"
+                  default="{game_status}"/>
+      <input_port name="game_progress"
+                  default="4"/>
+      <input_port name="lower_remain_time"
+                  default="0"/>
+      <input_port name="higher_remain_time"
+                  default="300"/>
+    </Action>
+    <Action ID="IsTarget"
+            editable="true">
+      <input_port name="message"
+                  default="{target}"/>
+    </Action>
+    <Decorator ID="RateController">
+      <input_port name="hz">Rate</input_port>
+    </Decorator>
+    <Action ID="RobotControl"
+            editable="true">
+      <input_port name="stop_gimbal_scan"
+                  default="True"/>
+      <input_port name="chassis_spin_vel"
+                  default="False"/>
+    </Action>
+    <Action ID="SendGoal"
+            editable="true">
+      <input_port name="goal_pose"
+                  default="0;0;0; 0;0;0;1"/>
+      <input_port name="action_name"
+                  default="navigate_to_pose"/>
+    </Action>
+    <Action ID="SubAllRobotHP"
+            editable="true">
+      <input_port name="topic_name"
+                  default="robot_hp"/>
+      <output_port name="robot_hp"
+                   default="{robot_hp}"/>
+    </Action>
+    <Action ID="SubGameStatus"
+            editable="true">
+      <input_port name="topic_name"
+                  default="game_status"/>
+      <output_port name="game_status"
+                   default="{game_status}"/>
+    </Action>
+    <Action ID="SubRobotHeat"
+            editable="true">
+      <input_port name="topic_name"
+                  default="robot_heat"/>
+      <output_port name="robot_heat"
+                   default="{robot_heat}"/>
+    </Action>
+    <Action ID="SubRobotStatus"
+            editable="true">
+      <input_port name="topic_name"
+                  default="robot_status"/>
+      <output_port name="robot_status"
+                   default="{robot_status}"/>
+    </Action>
+    <Action ID="SubTarget"
+            editable="true">
+      <input_port name="topic_name"
+                  default="/armor_solver/target"/>
+      <input_port name="qos_profile"
+                  default="sensor"/>
+      <output_port name="target"
+                   default="{target}"/>
+    </Action>
+  </TreeNodesModel>
+
+</root>

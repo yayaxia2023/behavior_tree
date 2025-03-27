@@ -5,12 +5,17 @@
     <ReactiveSequence>
       <SubAllRobotHP topic_name="robot_hp"
                      robot_hp="{robot_hp}"/>
-      <SubArmors topic_name="/detector/armors"
-                 armors="{armors}"/>
+      <SubTarget topic_name="/armor_solver/target"
+                 qos_profile="sensor"
+                 target="{target}"/>
       <SubRobotStatus topic_name="robot_status"
                       robot_status="{robot_status}"/>
       <SubGameStatus topic_name="game_status"
                      game_status="{game_status}"/>
+      <SubRobotHeat topic_name="robot_heat"
+                    robot_heat="{robot_heat}"/>
+      <SubRobotHurt topic_name="robot_damage"
+                    robot_attacked="{robot_damage}"/>
       <WhileDoElse>
         <IsGameTime name="IsGameStart"
                     message="{game_status}"
@@ -19,21 +24,22 @@
                     higher_remain_time="300"/>
         <ReactiveSequence>
           <WhileDoElse name="Whether gimbal_scan/chassis_spin">
-            <IsDetectEnemy message="{armors}"/>
+            <IsTarget message="{target}"/>
             <RobotControl stop_gimbal_scan="True"
-                          chassis_spin_vel="0.5"/>
+                          chassis_spin_vel="1500"/>
             <RobotControl stop_gimbal_scan="False"
-                          chassis_spin_vel="0.5"/>
+                          chassis_spin_vel="1500"/>
           </WhileDoElse>
           <WhileDoElse>
             <Sequence>
-              <IsDetectEnemy message="{armors}"/>
-              <IsStatusOK message="{robot_status}"
+              <IsTarget message="{target}"/>
+              <IsStatusOK message_1="{robot_status}"
+                          message_2="{robot_heat}"
                           hp_threshold="400"
                           heat_threshold="350"/>
             </Sequence>
             <WhileDoElse>
-              <IsAttaked message="{robot_status}"/>
+              <IsAttaked message="{robot_damage}"/>
               <AsyncSequence>
                 <GetCurrentLocation current_location="{current_location}"/>
                 <MoveAround expected_nearby_goal_count="3"
@@ -41,20 +47,28 @@
                             message="{current_location}"/>
               </AsyncSequence>
               <Fallback name="Whether interrupt navigation">
-                <IsStatusOK message="{robot_status}"
-                            hp_threshold="250"
+                <IsStatusOK message_1="{robot_status}"
+                            message_2="{robot_heat}"
+                            hp_threshold="100"
                             heat_threshold="350"/>
                 <SendGoal name="SupplyArea"
-                          goal_pose="-2.5;4.07;0; 0;0;0;1"
+                          goal_pose="0.1;-0.1;0; 0;0;0;1"
                           action_name="navigate_to_pose"/>
               </Fallback>
             </WhileDoElse>
             <WhileDoElse>
-              <IsStatusOK message="{robot_status}"
-                          hp_threshold="400"
-                          heat_threshold="350"/>
+              <Sequence>
+                <IsStatusOK message_1="{robot_status}"
+                            message_2="{robot_heat}"
+                            hp_threshold="100"
+                            heat_threshold="350"/>
+                <Inverter>
+                  <IsArea current_area="{area}"
+                          set_area="SupplyArea"/>
+                </Inverter>
+              </Sequence>
               <WhileDoElse>
-                <IsAttaked message="{robot_status}"/>
+                <IsAttaked message="{robot_damage}"/>
                 <AsyncSequence name="Dodge">
                   <GetCurrentLocation current_location="{current_location}"/>
                   <MoveAround expected_nearby_goal_count="3"
@@ -69,7 +83,7 @@
                               higher_remain_time="245"/>
                   <RateController hz="1">
                     <SendGoal name="OccupyCenter"
-                              goal_pose="3.0;0.4;0; 0;0;0;1"
+                              goal_pose="1.0;0;0; 0;0;0;1"
                               action_name="navigate_to_pose"/>
                   </RateController>
                   <WhileDoElse name="Attack">
@@ -77,25 +91,39 @@
                                 friend_color="red"/>
                     <RateController hz="1">
                       <SendGoal name="Attack_Right"
-                                goal_pose="5.1;-1.35;0; 0;0;0;1"
+                                goal_pose="1.0;0;0; 0;0;0;1"
                                 action_name="navigate_to_pose"/>
                     </RateController>
                     <RateController hz="1">
                       <SendGoal name="Center"
-                                goal_pose="3;1;0; 0;0;0;1"
+                                goal_pose="1.0;0;0; 0;0;0;1"
                                 action_name="navigate_to_pose"/>
                     </RateController>
                   </WhileDoElse>
                 </WhileDoElse>
               </WhileDoElse>
-              <RateController name="Retreat"
-                              hz="1">
-                <SendGoal name="SupplyArea"
-                          goal_pose="-2.5;4.07;0; 0;0;0;1"
-                          action_name="navigate_to_pose"/>
-              </RateController>
+              <Sequence>
+                <RateController name="Retreat"
+                                hz="1">
+                  <SendGoal name="SupplyArea"
+                            goal_pose="0.1;-0.1;0; 0;0;0;1"
+                            action_name="navigate_to_pose"/>
+                </RateController>
+                <SetArea set_area="SupplyArea"
+                         area="{area}"/>
+              </Sequence>
             </WhileDoElse>
           </WhileDoElse>
+          <Sequence>
+            <IsArea current_area="{area}"
+                    set_area="SupplyArea"/>
+            <IsStatusOK message_1="{robot_status}"
+                        message_2="{robot_heat}"
+                        hp_threshold="400"
+                        heat_threshold="350"/>
+            <SetArea set_area="out_area"
+                     area="{area}"/>
+          </Sequence>
         </ReactiveSequence>
         <ReactiveSequence>
           <RateController hz="1">
@@ -104,7 +132,9 @@
                       action_name="navigate_to_pose"/>
           </RateController>
           <RobotControl stop_gimbal_scan="True"
-                        chassis_spin_vel="0.0"/>
+                        chassis_spin_vel="1500"/>
+          <SetArea set_area="home"
+                   area="{area}"/>
         </ReactiveSequence>
       </WhileDoElse>
     </ReactiveSequence>
@@ -117,15 +147,17 @@
       <output_port name="current_location"
                    default="{current_location}"/>
     </Action>
+    <Action ID="IsArea"
+            editable="true">
+      <input_port name="current_area"
+                  default="{area}"/>
+      <input_port name="set_area"
+                  default="SupplyArea"/>
+    </Action>
     <Action ID="IsAttaked"
             editable="true">
       <input_port name="message"
                   default="{robot_status}"/>
-    </Action>
-    <Action ID="IsDetectEnemy"
-            editable="true">
-      <input_port name="message"
-                  default="{armors}"/>
     </Action>
     <Action ID="IsFriendOK"
             editable="true">
@@ -147,12 +179,19 @@
     </Action>
     <Action ID="IsStatusOK"
             editable="true">
-      <input_port name="message"
+      <input_port name="message_1"
                   default="{robot_status}"/>
+      <input_port name="message_2"
+                  default="{robot_heat}"/>
       <input_port name="hp_threshold"
                   default="100"/>
       <input_port name="heat_threshold"
                   default="350"/>
+    </Action>
+    <Action ID="IsTarget"
+            editable="true">
+      <input_port name="message"
+                  default="{target}"/>
     </Action>
     <Action ID="MoveAround"
             editable="true">
@@ -180,19 +219,19 @@
       <input_port name="action_name"
                   default="navigate_to_pose"/>
     </Action>
+    <Action ID="SetArea"
+            editable="true">
+      <input_port name="set_area"
+                  default="home"/>
+      <output_port name="area"
+                   default="{area}"/>
+    </Action>
     <Action ID="SubAllRobotHP"
             editable="true">
       <input_port name="topic_name"
                   default="robot_hp"/>
       <output_port name="robot_hp"
                    default="{robot_hp}"/>
-    </Action>
-    <Action ID="SubArmors"
-            editable="true">
-      <input_port name="topic_name"
-                  default="/detector/armors"/>
-      <output_port name="armors"
-                   default="{armors}"/>
     </Action>
     <Action ID="SubGameStatus"
             editable="true">
@@ -201,12 +240,35 @@
       <output_port name="game_status"
                    default="{game_status}"/>
     </Action>
+    <Action ID="SubRobotHeat"
+            editable="true">
+      <input_port name="topic_name"
+                  default="robot_heat"/>
+      <output_port name="robot_heat"
+                   default="{robot_heat}"/>
+    </Action>
+    <Action ID="SubRobotHurt"
+            editable="true">
+      <input_port name="topic_name"
+                  default="robot_damage"/>
+      <output_port name="robot_attacked"
+                   default="{robot_damage}"/>
+    </Action>
     <Action ID="SubRobotStatus"
             editable="true">
       <input_port name="topic_name"
                   default="robot_status"/>
       <output_port name="robot_status"
                    default="{robot_status}"/>
+    </Action>
+    <Action ID="SubTarget"
+            editable="true">
+      <input_port name="topic_name"
+                  default="/armor_solver/target"/>
+      <input_port name="qos_profile"
+                  default="sensor"/>
+      <output_port name="target"
+                   default="{target}"/>
     </Action>
   </TreeNodesModel>
 

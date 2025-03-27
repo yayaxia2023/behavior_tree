@@ -8,7 +8,7 @@ from launch_ros.actions import Node
 def generate_launch_description():
     bt_config_dir = os.path.join(get_package_share_directory('rm_behavior_tree'), 'config')
     
-    style = LaunchConfiguration('style', default='test')
+    style = LaunchConfiguration('style', default='rmul_nm')
     use_sim_time = LaunchConfiguration('use_sim_time', default='False')
 
     bt_xml_dir = PathJoinSubstitution([bt_config_dir, style]), ".xml"
