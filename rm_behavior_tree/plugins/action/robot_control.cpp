@@ -11,6 +11,7 @@ RobotControlAction::RobotControlAction(
 
 bool RobotControlAction::setMessage(rm_decision_interfaces::msg::RobotControl & msg)
 {
+  getInput("stop_gimbal_scan", msg.mode);
   getInput("stop_gimbal_scan", msg.stop_gimbal_scan);
   getInput("chassis_spin_vel", msg.chassis_spin_vel);
 
