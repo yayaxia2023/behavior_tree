@@ -135,6 +135,16 @@ ament_auto_add_library(robot_control SHARED
 )
 add_target_dependencies(robot_control)
 
+ament_auto_add_library(robot_gimbal_scan SHARED 
+    plugins/action/robot_gimbal_scan.cpp
+)
+add_target_dependencies(robot_gimbal_scan)
+
+ament_auto_add_library(robot_chasses_spin SHARED 
+    plugins/action/robot_chasses_spin.cpp
+)
+add_target_dependencies(robot_chasses_spin)
+
 ament_auto_add_library(sub_robot_heat SHARED 
     plugins/action/sub_robot_heat.cpp
 )
